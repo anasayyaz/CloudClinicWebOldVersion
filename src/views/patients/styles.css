@@ -1,0 +1,77 @@
+.foo {
+  background-color: black;
+  width: 100%;
+  margin: 0 auto;
+
+  /* Small Devices, Tablets */
+  @media only screen and (min-width : 768px) {
+    width: 75%;
+    background-color: green;
+  }
+
+  /* Medium Devices, Desktops */
+  @media only screen and (min-width : 992px) {
+    width: 50%;
+    background-color: pink;
+  }
+}
+.lblLI
+{
+    color: #FFFFFF;
+    text-align: right;
+    font-size: 12px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+.lblSw
+{
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+.lblS
+{
+    color: #00FFFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+.lblM
+{
+    color: #00FFFF;
+    font-size: 15px;
+    font-weight: bold;
+}
+.lblMr
+{
+    color: #00FFFF;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+}
+.lblMic
+{
+    color: #8BFF00;
+    font-size: 12px;
+    font-weight: bold;
+  text-align: center;
+}
+.lblLg
+{
+    color: #8BFF00;
+    font-size: 25px;
+    font-weight: bold;
+}
+.lblLgl
+{
+    color: #8BFF00;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.lblLg2
+{
+    color: #00FFFF;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: left;
+}

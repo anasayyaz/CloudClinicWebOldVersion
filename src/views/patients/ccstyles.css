@@ -1,0 +1,446 @@
+* {
+  box-sizing: border-box;
+  font-family: montserrat;
+}
+
+:root {
+ --blue-gradient: linear-gradient(120deg, #0b7adb, #64c0ff);
+    --red-gradient: linear-gradient(120deg, #eb3030, #ff6464);
+  --dark-blue-gradient: linear-gradient(120deg, #013b6e, #0060a0);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.main-body {
+  display: flex;
+  height: 100%;
+}
+
+#ccSidebar {
+  background-color: #2c3144;
+  color: #afd1e0;
+  width: 350px;
+  transition: 500ms;
+  z-index: 1;
+}
+
+#ccSidebar.active {
+  width: 60px;
+}
+
+#ccSidebar.active ul li h6 {
+  display: none;
+}
+
+#ccMain {
+  background-color: #f2f2f2;
+  width: 100vw;
+  z-index: 0;
+}
+
+#ccSidebar ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+#ccSidebar ul li {
+  display: flex;
+  padding: 0rem;
+  margin: 0;
+  align-items: center;
+}
+
+#ccSidebar ul li a {
+  display: flex;
+  margin: 0;
+  align-items: center;
+  color: #afd1e0;
+  text-decoration: none;
+  width: 100%;
+  padding-right: 1.4rem;
+}
+
+#ccSidebar ul li a:hover {
+  background-color: rgba(49, 66, 92, 0.61);
+  background-blend-mode: screen;
+  transition: 500ms;
+  cursor: pointer;
+}
+
+#ccSidebar ul li a.active {
+  background-color: rgba(5, 22, 49, 0.671);
+  background-blend-mode: multiply;
+}
+
+#ccSidebar ul li a span {
+  padding: 1rem;
+}
+
+.hamburger {
+  background-color: rgb(255, 255, 255);
+  display: block;
+  position: relative;
+}
+
+#ccSidebar ul li button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 1rem 1.2rem;
+  color: white;
+  font-size: 1.5rem;
+  background-color: rgba(52, 77, 114, 0.685);
+  float: right;
+}
+
+#ccSidebar ul li button:hover {
+  background-color: rgba(65, 89, 124, 0.685);
+  background-blend-mode: screen;
+}
+
+#ccSidebar ul li h6 {
+  margin: 0;
+  line-height: 1.4rem;
+}
+
+@media only screen and (max-width: 800px) {
+  #ccSidebar {
+    display: none;
+  }
+}
+
+.main-section header {
+  background-color: white;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.cc_logo {
+  height: 71px;
+}
+
+.img-profile {
+  height: 2.7rem;
+  border-radius: 50px;
+}
+
+.cc-table {
+  border-collapse: separate;
+  border-spacing: 0 1rem;
+}
+
+/* .patients-table tbody tr {
+  background: white;
+  box-shadow: 3px 3px 10px #6b6b6b3f;
+  padding: 1rem;
+  margin: 0.3rem;
+  border-radius: 0.5rem;
+} */
+
+.cc-table th:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.cc-table th:last-of-type {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.cc-table tbody td:first-of-type {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.cc-table tbody td:last-of-type {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.cc-table th {
+  background-color: #36a9f7;
+  color: white;
+}
+
+.cc-btn {
+  background-image: var(--blue-gradient);
+  color: white;
+  transition: 500ms;
+}
+.ccred-btn {
+  background-image: var(--red-gradient);
+  color: white;
+  transition: 500ms;
+}
+
+.cc-btn:hover {
+  background-image: linear-gradient(120deg,64c0ff,#64c0ff);
+  color: black;
+  cursor: pointer;
+}
+
+.cc-icons-div button {
+  width: 3rem;
+  height: 3rem;
+}
+
+.cc-page-title {
+  letter-spacing: 2px;
+  font-weight: 600;
+}
+
+.cc-icon-text {
+  background-color: white;
+  border: none;
+  color: #3e4d5275;
+  border-radius: 6px;
+}
+
+.cc-icon-text:hover {
+  background-color: rgb(247, 247, 247);
+  transition: 500ms;
+}
+
+.cc-icon-text span {
+  font-size: 27px;
+}
+
+.cc-icon-text p {
+  font-size: 12px;
+}
+
+.cc-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #006eff;
+  letter-spacing: 1px;
+}
+
+.cc-form-input {
+  font-size: 18px;
+  color: #363636;
+}
+
+.cc-red-btn {
+  background-color: rgb(223, 14, 14);
+  display: inline-block;
+  font-weight: 400;
+  color: #ffffff;
+  font-weight: 800;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.cc-red-btn:hover {
+  background-color: #e6e6e6;
+  color: black;
+}
+
+.modal-header {
+  background-image: var(--blue-gradient);
+}
+
+.cc-bg-light-grey {
+  background-color: #ececec;
+}
+
+.cc-thumbnail {
+  object-fit: cover;
+  width: 140px;
+  height: 140px;
+}
+
+.cc-bg-img {
+  background-image: var(--blue-gradient);
+  padding: 20px;
+}
+
+.cc-bg-img-dark {
+  background-image: var(--dark-blue-gradient);
+  padding: 20px;
+}
+
+.cc-dashboard-tab {
+  height: 180px;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.cc-dashboard-tab span {
+  font-size: 40px;
+  color: white;
+}
+
+.cc-dashboard-tab p {
+  position: absolute;
+  bottom: 20px;
+  left: 25px;
+  right: 25px;
+  margin: 0;
+  font-size: 1rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
+.cc-dashboard-mini-tab {
+  height: 78px;
+  position: relative;
+  margin-top: 1.4rem;
+}
+
+.cc-dashboard-mini-tab span {
+  font-size: 25px;
+  color: white;
+}
+
+.cc-dashboard-mini-tab p {
+  position: absolute;
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+  margin: 0;
+  font-size: 0.6rem;
+  color: white;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+
+.cc-dashboard-mini-tabs {
+  padding-top: 10px;
+}
+
+.cc-vital-signs {
+  padding: 1rem 0.8rem;
+  margin: 0;
+  border-radius: 1rem;
+  color: white;
+  border: rgb(211, 225, 233) solid 5px;
+}
+
+.cc-vital-signs p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: white;
+}
+
+.cc-vital-signs button {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  color: white;
+  cursor: pointer;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+}
+
+.cc-vital-signs button small {
+  font-size: 0.7rem;
+  color: rgb(167, 171, 177);
+}
+
+.cc-vital-signs span {
+  color: rgb(231, 255, 194);
+}
+
+.cc-vital-signs h5 {
+  color: rgb(231, 255, 194);
+  margin: 0;
+}
+
+.cc-vital-signs h3 {
+  color: rgb(231, 255, 194);
+  margin: 0;
+}
+
+.cc-vital-signs small {
+  color: white;
+  margin: 0;
+}
+
+.cc-vital-nibp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-nibp h1 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-nibp h5 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-nibp span{
+  color: rgb(175, 230, 255);
+  font-size: 0.8rem;
+}
+
+.cc-vital-nibp small{
+  font-size: 0.8rem;
+}
+
+.cc-vital-temp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-temp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-temp h1 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-temp h5 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-temp span{
+  color: rgb(175, 230, 255);
+  font-size: 0.8rem;
+}
+
+.cc-vital-temp small{
+  font-size: 0.8rem;
+}
+
+.cc-dashboard-btn {
+  cursor: pointer;
+  padding: 0.5rem 1.4rem 0.5rem 0.5rem;
+}
+
+.cc-dashboard-btn span {
+  color: rgb(255, 255, 255);
+  font-size: 2rem;
+}
+
+.cc-dashboard-btn p {
+  font-size: 1rem;
+  padding: 0;
+  margin: 0;
+  color: white;
+}
+

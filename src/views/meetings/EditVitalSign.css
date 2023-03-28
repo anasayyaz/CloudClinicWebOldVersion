@@ -1,0 +1,153 @@
+.cc-vitals-border-bottom {
+  border-bottom: rgb(87 98 109) solid 2px !important;
+}
+
+.cc-vitals-border-top {
+  border-top: rgb(87 98 109) solid 2px !important;
+}
+
+.ecg_fulscreen {
+  width: 100%;
+  transition: ease-in-out 500ms;
+}
+
+.ecg_fulscreen_jitsi {
+  display: none;
+}
+
+.ecg_fulscreen.active {
+  width: 40%;
+  transition: ease-in-out 500ms;
+}
+
+
+.ecg_fulscreen.active .dateTimeText {
+  font-size: 0.6rem;
+}
+
+
+.ecg_fulscreen_jitsi.active {
+  width: 60%;
+  display: block;
+}
+
+.outer-jitsi {
+  width: 60%;
+}
+
+.ecg_fulscreen.active .cc-vital-nibp {
+  width: 100%;
+}
+
+.ecg_fulscreen.active .cc-vital-temp {
+  width: 100%;
+  margin-left: 0;
+  margin-top: 5px;
+}
+
+.cc-vital-nibp {
+  width: 60%;
+}
+
+.cc-vital-temp {
+  width: 39%;
+  margin-left: 5px;
+}
+
+.ecg_fulscreen p {
+  font-size: 1.3rem;
+}
+
+.ecg_fulscreen span {
+  font-size: 1.2rem;
+}
+
+.ecg_fulscreen small {
+  font-size: 1.0rem;
+}
+
+.ecg_fulscreen h3 {
+  font-size: 2rem;
+}
+
+.ecg_fulscreen h1 {
+  font-size: 3rem;
+}
+
+.ecg_fulscreen h6 {
+  font-size: 1.5rem;
+}
+
+.ecg_fulscreen.active p {
+  font-size: 0.8rem;
+}
+
+.ecg_fulscreen.active h4{
+  font-size: 1.2rem;
+}
+.ecg_fulscreen.active h5 {
+  font-size: 1.4rem;
+}
+.ecg_fulscreen.active span {
+  font-size: 0.8rem;
+}
+
+.ecg_fulscreen.active small {
+  font-size: 0.6rem;
+}
+
+.ecg_fulscreen.active h6 {
+  font-size: 1rem;
+}
+
+.ecg_fulscreen.active h3 {
+  font-size: 1rem;
+}
+
+.ecg_fulscreen.active h1 {
+  font-size: 1.5rem;
+}
+
+.meeting-detail-btns button {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 992px) {
+  .ecg_fulscreen .cc-vital-nibp {
+    width: 100%;
+  }
+
+  .ecg_fulscreen .cc-vital-temp {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 5px;
+  }
+
+  .ecg_fulscreen.active {
+    width: 100%;
+    transition: ease-in-out 500ms;
+  }
+
+  .ecg_fulscreen_jitsi.active {
+    width: 100%;
+    display: block;
+  }
+
+  .outer-jitsi {
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .container.overflow-auto {
+    padding: 0px 5px 0px 0px !important;
+  }
+
+  .card.bg-white.shadow.py-3 {
+    padding: 10px !important;
+  }
+}

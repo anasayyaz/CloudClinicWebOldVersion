@@ -1,0 +1,33 @@
+
+
+
+.tableWrapper tr td {
+  min-width: 100px;
+}
+
+.tableWrapper tr td:first-child {
+  min-width: 50px;
+}
+
+
+.viewButton {
+  width: 150px;
+  height: 50px;
+  padding: 10px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  background: rgb(255,0,50);
+  color: white;
+  border-radius: 20px;
+}
+.viewButton:hover {
+  color: white;
+  text-decoration: none;
+}
+.NavLink {
+  font-size: 15px;
+}
+  
+  .ag-column-hover {
+    background-color: #dfffdf;
+  }

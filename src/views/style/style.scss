@@ -1,0 +1,335 @@
+// If you want to override variables do it here
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand+SC|Roboto&display=swap');
+
+// Import CoreUI styles
+@import "~@coreui/coreui/scss/coreui.scss";
+
+// If you want to add something do it here
+@import "react-big-calendar/lib/sass/styles";
+@import "react-big-calendar/lib/addons/dragAndDrop/styles"; // if using DnD
+
+* {
+    box-sizing: border-box;
+    font-family: anton;
+  }
+  
+  :root {
+    --blue-gradient: linear-gradient(120deg, #0b7adb, #64c0ff);
+    --red-gradient: linear-gradient(120deg, #eb3030, #ff6464);
+  }
+  
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .main-body {
+    display: flex;
+  }
+  
+  #ccSidebar {
+    background-color: #0097d3 !important;
+    height: 100vh;
+    color: #afd1e0;
+    width: 350px;
+    transition: 500ms;
+    z-index: 1;
+  }
+  
+  #ccSidebar.active {
+    width: 60px !important;
+  }
+  
+  #ccSidebar.active ul li h6 {
+    display: none;
+  }
+  
+  #ccMain {
+    background-color: #ffffff !important;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+  }
+  
+  #ccSidebar ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  
+  #ccSidebar ul li {
+    display: flex;
+    padding: 0rem;
+    margin: 0;
+    align-items: center;
+  }
+  
+  #ccSidebar ul li a {
+    display: flex;
+    margin: 0;
+    align-items: center;
+    width: 100%;
+    padding-right: 1.4rem;
+  }
+  
+  #ccSidebar ul li a:hover {
+    background-color: #0159a0 !important;
+    background-blend-mode: screen;
+    transition: 500ms;
+    cursor: pointer;
+  }
+  
+  #ccSidebar ul li a span {
+    padding: 1rem;
+  }
+  
+  .hamburger {
+    background-color: #ffffff !important;
+    display: block;
+    position: relative;
+  }
+  
+  #ccSidebar ul li button {
+    /* position: absolute;
+    right: 0;
+    top: 0; */
+    background: none;
+    border: none;
+    outline: none;
+    padding: 1rem 1.2rem;
+    color: white;
+    font-size: 1.5rem;
+    background-color: rgba(52, 77, 114, 0.685);
+    float: right;
+  }
+  
+  #ccSidebar ul li button:hover {
+    background-color: rgba(65, 89, 124, 0.685);
+    background-blend-mode: screen;
+  }
+  
+  #ccSidebar ul li h6 {
+    margin: 0;
+    line-height: 1.5rem;
+  }
+  
+  .main-section header {
+    background-color: white;
+    box-sizing: border-box;
+    justify-content: space-between;
+  }
+  
+  .cc_logo {
+    height: 51px;
+  }
+  
+  .img-profile {
+    height: 2.7rem;
+    border-radius: 50px;
+  }
+  
+  .patients-table {
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+  }
+  
+  
+  
+  /* .patients-table tbody tr {
+    background: white;
+    box-shadow: 3px 3px 10px #6b6b6b3f;
+    padding: 1rem;
+    margin: 0.3rem;
+    border-radius: 0.5rem;
+  } */
+  
+  .patients-table th:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .patients-table th:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .patients-table tbody tr:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+  
+  .patients-table tbody tr:last-of-type {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  
+  .patients-table th {
+    background-color: #36a9f7;
+    color: white;
+  }
+  
+  .table-btn {
+    background-image: var(--blue-gradient);
+  }
+  
+  .table-btn:hover {
+      background-image: linear-gradient(120deg,64c0ff,#64c0ff);
+      cursor: pointer;
+  }
+  .table-btnd {
+    background-image: var(--red-gradient);
+  }
+  
+  .table-btnd:hover {
+      background-image: linear-gradient(120deg,64c0ff,#64c0ff);
+      cursor: pointer;
+  }
+  button.openbtn {
+    background: #0b7adb;
+    border: none;
+    outline: none;
+    padding: 1rem 1.2rem;
+    color: rgb(0, 0, 0);
+    font-size: 1.5rem;
+    background-color:#ffffff;
+    float: right;
+  }
+  .c-sidebar-nav-icon:first-child{
+      margin-left: -0.7rem !important;
+  }
+  .startMeeting{
+    color: #fff;
+    background-color: #36a9f7 !important;
+  }
+  .cc-icon-text {
+    background-color: white;
+    border: none;
+    color: #3e4d5275;
+    border-radius: 6px;
+  }
+  
+  .cc-icon-text:hover {
+    background-color: rgb(247, 247, 247);
+    transition: 500ms;
+  }
+  
+  .cc-icon-text span {
+    font-size: 27px;
+  }
+  
+  .cc-icon-text p {
+    font-size: 12px;
+  }
+  
+  .cc-form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #006eff;
+    letter-spacing: 1px;
+  }
+  
+  .cc-form-input {
+    font-size: 18px;
+    color: #363636;
+  }
+  .btn-primary {
+    color: #fff;
+    background-color: #006eff;
+}
+.disabled_button {
+  pointer-events:none; //This makes it not clickable
+  opacity:0.6;         //This grays it out to look disabled
+}
+@media only screen and (min-width : 992px) {
+  .c-sidebar-right{
+    margin-left:'0px !iimportant'
+  }
+}
+
+.calander_hide{
+  margin-top:-15px;
+  background-color:#fff;
+  border:none;
+  display:block;
+  margin-left:-15px;
+  padding:3px
+}
+.calander_show{
+  margin-top:-15px;
+  background-color:#fff;
+  border:none;
+  display:block;
+  margin-right:-40px;
+  padding:0px
+}
+@media only screen and (max-width: 992px) {
+  html:not([dir="rtl"]) .c-sidebar:not(.c-sidebar-right) {
+    margin-left: 0px !important;
+    /* overflow: auto; */
+  }
+  button.c-header-toggler.ml-md-3.d-lg-none.d-sm-none {
+    display: none;
+  }
+  span.c-header-toggler-icon {
+    display: none;
+  }
+  a.c-header-brand.mx-auto.d-lg-none.active {
+    display: none;
+}
+.c-wrapper {
+  margin-left:60px !important
+}
+}
+
+.input-container select {
+  border: none;
+  height: 2.5rem;
+  background: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+.image-upload
+{
+    margin: auto;
+    margin-top: 2rem;
+    position: relative;
+}
+
+.image-upload img
+{
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  margin: auto;
+  display: block;
+}
+.image-upload label
+{
+  position: absolute;
+  bottom: -8px;
+  right: 100px;
+}
+.c-sidebar {
+    background: #0b7adb!important;
+}
+
+
+.c-sidebar .c-sidebar-nav-link:hover, .c-sidebar .c-sidebar-nav-dropdown-toggle:hover {
+    background: #64c0ff !important;
+}
+
+.c-icon:not(.c-icon-c-s):not(.c-icon-custom-size).c-icon-2xl {
+  width: 2rem;
+  height: 1.5rem !important;
+  font-size: 2rem;
+}
+
+.c-main {
+  background-color: #fafafa !important;
+}

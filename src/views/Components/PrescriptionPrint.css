@@ -1,0 +1,27 @@
+.prescriptionBorder {
+  position: relative;
+  border-bottom: 25px solid rgb(39, 122, 210);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.prescriptionBorder div {
+  position: absolute;
+}
+
+.prescriptionBorderLight {
+  border-bottom: 10px solid rgb(39, 122, 210);
+  width: 100%;
+}
+
+.prescription_rxImg {
+  height: 60px;
+  opacity: 0.8;
+  background-color: white;
+}
+
+.section_03 {
+  text-align: right;
+}

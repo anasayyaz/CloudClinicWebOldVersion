@@ -1,0 +1,108 @@
+.cc-vital-signs {
+  padding: 1rem 0.8rem;
+  margin: 0;
+  border-radius: 1rem;
+  color: white;
+  border: rgb(211, 225, 233) solid 5px;
+}
+
+.cc-vital-signs p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: white;
+}
+
+.cc-vital-signs button {
+  font-size: 0.8rem;
+  margin: 0;
+  padding: 0;
+  color: white;
+  cursor: pointer;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+}
+
+.cc-vital-signs button small {
+  font-size: 0.7rem;
+  color: rgb(167, 171, 177);
+}
+
+.cc-vital-signs span {
+  color: rgb(231, 255, 194);
+}
+
+.cc-vital-signs h6 {
+  color: rgb(231, 255, 194);
+  margin: 0;
+}
+
+.cc-vital-signs h5 {
+  color: rgb(231, 255, 194);
+  margin: 0;
+}
+
+.cc-vital-signs h3 {
+  color: rgb(231, 255, 194);
+  margin: 0;
+}
+
+.cc-vital-signs small {
+  color: white;
+  margin: 0;
+}
+
+.cc-vital-nibp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-nibp h1 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-nibp h5 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-nibp span{
+  color: rgb(175, 230, 255);
+  font-size: 0.8rem;
+}
+
+.cc-vital-nibp small{
+  font-size: 0.8rem;
+}
+
+.cc-vital-temp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-temp {
+  background-color: #4e545a;
+  border-radius: 0.3rem;
+}
+
+.cc-vital-temp h1 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-temp h5 {
+  color: rgb(175, 230, 255);
+  margin: 0;
+}
+
+.cc-vital-temp span{
+  color: rgb(175, 230, 255);
+  font-size: 0.8rem;
+}
+
+.cc-vital-temp small{
+  font-size: 0.8rem;
+}
+
+
