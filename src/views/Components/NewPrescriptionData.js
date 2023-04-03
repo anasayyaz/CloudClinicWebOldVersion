@@ -4,6 +4,10 @@ import { useSelector } from "react-redux";
 import LoadingSpinner from "./LoadingSpinner";
 import TranslationContext from "../../context/translation";
 let userid = JSON.parse(localStorage.getItem("user"));
+let image = localStorage.getItem("image");
+let role = localStorage.getItem("role");
+let name = JSON.parse(localStorage.getItem("user"));
+let link = `https://cloudclinicdevapi.azurewebsites.net/images/${image}`;
 var roles = localStorage.getItem("roles");
 const NewPrescriptionData = (props) => {
 
@@ -21,6 +25,7 @@ const NewPrescriptionData = (props) => {
     const [allDoseUnit, SetallDoseUnit] = useState("");
     const [Role, setRole] = useState(true);
     const [dosageInstruction, setDosageInstruction] = useState("");
+    const [dosageNum, setDosageNum] = useState("");
     const [refilDetails, setRefilDetails] = useState("");
     const [isDeletedCheck, setIsDeletedCheck] = useState(true);
 
@@ -31,13 +36,15 @@ const NewPrescriptionData = (props) => {
     const [prescriptionUpdated, setPrescriptionUpdated] = useState(false);
     const [UpdateIndex, setUpdateIndex] = useState(null);
 
-    let prescriptionObj = { medicine: "", duration: "", durationUnit: "", route: "", direction: "", frequency: "" };
+    let prescriptionObj = { medicine: "", duration: "", durationUnit: "", route: "", direction: "", frequency: "", dosage: "", doseNum: "" };
     const medicineRef = useRef();
     const durationRef = useRef();
     const durationUnitRef = useRef();
     const routeRef = useRef();
     const directionRef = useRef();
     const frequencyRef = useRef();
+    const dosageRef = useRef();
+    const dosageNumRef = useRef();
 
 
     const countDeletedPrescription = (prescriptionArray) => {
@@ -149,6 +156,18 @@ const NewPrescriptionData = (props) => {
                 frequency: event.target.value,
             };
         }
+        else if (event.target.id == "dosage") {
+            prescriptionObj = {
+                ...prescriptionObj,
+                dosage: event.target.value,
+            };
+        }
+        else if (event.target.id == "doseNum-input") {
+            prescriptionObj = {
+                ...prescriptionObj,
+                doseNum: event.target.value,
+            };
+        }
 
     };
 
@@ -159,13 +178,15 @@ const NewPrescriptionData = (props) => {
         //     return;
         // }
         setLocalPrescription([...localPrescription, prescriptionObj]);
-        prescriptionObj = { medicine: "", duration: "", durationUnit: "", route: "", direction: "", frequency: "" };
+        prescriptionObj = { medicine: "", duration: "", durationUnit: "", route: "", direction: "", frequency: "", dosage: "", doseNum: "" };
         medicineRef.current.value = "";
+        dosageRef.current.value = "";
         durationRef.current.value = "";
         durationUnitRef.current.value = "";
         routeRef.current.value = "";
         directionRef.current.value = "";
         frequencyRef.current.value = "";
+        dosageNumRef.current.value = ""
     };
 
     const deleteLocalPrescriptionHandler = (Dindex) => {
@@ -325,13 +346,16 @@ const NewPrescriptionData = (props) => {
                 localPrescription[i].durationUnit,
                 localPrescription[i].route,
                 localPrescription[i].direction,
-                localPrescription[i].frequency
+                localPrescription[i].frequency,
+                localPrescription[i].dosage,
+                localPrescription[i].doseNum
             );
         }
         getAllPrescription();
     };
 
-    const createPrescription = async (medicine, duration, durationUnit, route, direction, frequency) => {
+    const createPrescription = async (medicine, duration, durationUnit, route, direction, frequency, dosage, doseNum) => {
+
         try {
             const body = {
 
@@ -341,14 +365,14 @@ const NewPrescriptionData = (props) => {
                 medicineName: "Zostat 50Mg Tab 20 s",
                 medicineGenericName: "Losartan",
                 physicianName: "Dr Usman Bhatti",
-                dose: duration,
+                dose: doseNum,
                 doseUnit: durationUnit,
                 route: route,
                 direction: direction,
                 frequency: frequency,
                 duration: duration,
                 durationUnit: durationUnit,
-                dosageInstruction: "dosage",
+                dosageInstruction: dosage,
                 refilDetails: " refil",
                 createdOn: new Date(),
                 createdBy: userid,
@@ -359,8 +383,9 @@ const NewPrescriptionData = (props) => {
                 Patient_NationalID: props.patientID,
                 Consultant_NationalID: props.consultantID,
                 status: "Continued"
-            };
 
+            };
+            console.log(body)
             const response = await fetch(
                 "https://cloudclinicdevapi.azurewebsites.net/api/prescription",
                 {
@@ -395,9 +420,10 @@ const NewPrescriptionData = (props) => {
         <div className="col-md-12 p-0  ">
             <div className="row py-3 mx-2 d-flex justify-content-between">
                 <img
-                    src="https://cloudclinicdemo.azurewebsites.net/avatars/Logo.png"
+                    src={link}
                     alt="Cloud Clinic Logo"
                     className="cc_logo"
+                    style={{ height: "60px", width: "240px" }}
                 />
                 <div className="text-right">
                     <div className="w-100 d-flex align-items-baseline col-md-6 mt-2 px-4">
@@ -498,9 +524,21 @@ const NewPrescriptionData = (props) => {
                                                                 </span>{" "}
                                                             </p>
                                                             <p className="m-0 text-info font-weight-bold">
+                                                                {"Quantity"}:{" "}
+                                                                <span className="text-dark font-weight-bold">
+                                                                    {data.dose}
+                                                                </span>
+                                                            </p>
+                                                            <p className="m-0 text-info font-weight-bold">
                                                                 {"Unit"}:{" "}
                                                                 <span className="text-dark font-weight-bold">
                                                                     {data.doseUnit}
+                                                                </span>
+                                                            </p>
+                                                            <p className="m-0 text-info font-weight-bold">
+                                                                {"Instructions"}:{" "}
+                                                                <span className="text-dark font-weight-bold">
+                                                                    {data.dosageInstruction}
                                                                 </span>
                                                             </p>
                                                         </div>
@@ -765,7 +803,7 @@ const NewPrescriptionData = (props) => {
                                                     allFrequency.map((data, index) => (
                                                         <option
                                                             key={index}
-                                                            value={data.title}
+                                                            value={data.value}
                                                         />
                                                     ))}
                                             </datalist>
@@ -817,7 +855,7 @@ const NewPrescriptionData = (props) => {
                                                     ))}
                                             </datalist>
                                         </div>
-                                        <div className="font-weight-bold col-md-4">
+                                        <div className="font-weight-bold col-md-2">
                                             <input
                                                 list="doseUnit"
                                                 id="durationUnit-input"
@@ -836,7 +874,33 @@ const NewPrescriptionData = (props) => {
                                                     ))}
                                             </datalist>
                                         </div>
-
+                                        <div className="font-weight-bold col-md-2">
+                                            <input
+                                                type="number"
+                                                id="doseNum-input"
+                                                className="form-control"
+                                                placeholder={"Quantity"}
+                                                ref={dosageNumRef}
+                                                onChange={localPrescriptionHandler}
+                                            />
+                                            {/* <input
+                                                type="text"
+                                                id="dosage"
+                                                className="form-control"
+                                                placeholder={translate("DOSAGE_INSTRUCTIONS")}
+                                                value={dosageInstruction}
+                                                onChange={(e) => setDosageInstruction(e.target.value)}
+                                            /> */}
+                                            {/* <datalist id="doseUnit" className="cutom-select">
+                                                {allDoseUnit &&
+                                                    allDoseUnit.map((data, index) => (
+                                                        <option
+                                                            key={index}
+                                                            value={data.title}
+                                                        />
+                                                    ))}
+                                            </datalist> */}
+                                        </div>
                                         <div className="font-weight-bold col-md-4">
 
                                             <input
@@ -856,6 +920,25 @@ const NewPrescriptionData = (props) => {
                                                         />
                                                     ))}
                                             </datalist>
+                                        </div>
+                                        <div className="font-weight-bold col-md-12 mt-2">
+                                            <input
+                                                type="text"
+                                                id="dosage"
+                                                className="form-control"
+                                                placeholder={translate("DOSAGE_INSTRUCTIONS")}
+                                                ref={dosageRef}
+                                                onChange={localPrescriptionHandler}
+                                            />
+                                            {/* <datalist id="doseUnit" className="cutom-select">
+                                                {allDoseUnit &&
+                                                    allDoseUnit.map((data, index) => (
+                                                        <option
+                                                            key={index}
+                                                            value={data.title}
+                                                        />
+                                                    ))}
+                                            </datalist> */}
                                         </div>
                                     </div>
 

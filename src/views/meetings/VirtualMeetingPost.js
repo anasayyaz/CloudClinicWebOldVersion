@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import PrescriptionPrint from "../Components/PrescriptionPrint";
+import PrescriptionPrintNew from "../Components/PrescriptionPrintNew";
 import LabTestPrint from "../Components/LabTestPrint";
 import ReportPrint from "../Components/ReportPrint";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -22,6 +23,7 @@ import ModalCarousel from "../Components/ModalCarousel";
 import UploadImages from "../Components/UploadImages";
 import QRCode from "react-qr-code";
 import ReactDOM from "react-dom";
+
 import {
   TableBody,
   TableCell,
@@ -43,6 +45,10 @@ import EditIntakeHistory from "../Components/EditIntakeHistory";
 import { QrCode } from "@mui/icons-material";
 import LabTestData from "../Components/LabTestData";
 let domainName = localStorage.getItem("domain");
+let image = localStorage.getItem("image");
+let role = localStorage.getItem("role");
+let name = JSON.parse(localStorage.getItem("user"));
+let link = `https://cloudclinicdevapi.azurewebsites.net/images/${image}`;
 // import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
 // import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
@@ -62,6 +68,7 @@ const VirtualMeetingPost = (props) => {
 
   const [P, setP] = useState(false);
   const [modalIsOpenPPrint, setIsOpenPPrint] = React.useState(false);
+  const [modalIsOpenPPrintNew, setIsOpenPPrintNew] = React.useState(false);
   const [modalIsOpenLPrint, setIsOpenLPrint] = React.useState(false);
   const [modalIsOpenRPrint, setIsOpenRPrint] = React.useState(false);
   const [modalIsOpenAPrint, setIsOpenAPrint] = React.useState(false);
@@ -305,6 +312,15 @@ const VirtualMeetingPost = (props) => {
     setTimeout(() => {
       window.print();
       setIsOpenPPrint(false);
+      // handlePrint();
+    }, 1000);
+  }
+  function printPNew() {
+    setIsOpenPPrintNew(true);
+    setP(JSON.parse(localStorage.getItem("PrescriptionPrint")));
+    setTimeout(() => {
+      window.print();
+      setIsOpenPPrintNew(false);
       // handlePrint();
     }, 1000);
   }
@@ -1144,9 +1160,10 @@ const VirtualMeetingPost = (props) => {
                 <div className="col-md-12">
                   <div className="row py-3 mx-2 border-bottom d-flex justify-content-between">
                     <img
-                      src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                      src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
+                      style={{ height: "50px",width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-6 mt-2 px-4"></div>
@@ -1517,7 +1534,7 @@ const VirtualMeetingPost = (props) => {
             <Button
               className="btn cc-btn"
               onClick={() => {
-                printP();
+                printPNew();
               }}
             >
               <img
@@ -1702,9 +1719,10 @@ const VirtualMeetingPost = (props) => {
                 <div className="col-md-12">
                   <div className="row py-3 mx-2 border-bottom d-flex justify-content-between">
                     <img
-                      src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                      src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
+                      style={{ height: "50px",width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-12 mt-2 px-4">
@@ -1778,9 +1796,10 @@ const VirtualMeetingPost = (props) => {
                 <div className="col-md-12">
                   <div className="row py-3 mx-2 border-bottom d-flex justify-content-between">
                     <img
-                      src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                      src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
+                      style={{ height: "50px",width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-12 mt-2 px-4">
@@ -2092,9 +2111,9 @@ const VirtualMeetingPost = (props) => {
           <div style={{ width: "95vw" }}>
             <div className="row py-3 mx-2 d-flex align-items-center">
               <img
-                src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "90px" }}
+                style={{ height: "50px",width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2137,6 +2156,63 @@ const VirtualMeetingPost = (props) => {
         </DialogContent>
       </Dialog>
       <Dialog
+        open={modalIsOpenPPrintNew}
+        onClose={() => {
+          setIsOpenPrescriptionNew(false);
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        maxWidth="true"
+      >
+        <DialogContent>
+          <div style={{ width: "95vw" }}>
+            <div className="row py-3 mx-2 d-flex align-items-center">
+              <img
+                src={link}
+                alt="Cloud Clinic Logo"
+                style={{ height: "50px",width: "200px" }}
+              />
+              <div className="text-left pl-4">
+                <p
+                  className="pb-1 mb-1 h2 font-weight-bold"
+                  style={{
+                    color: "rgb(39, 122, 210)",
+                    borderBottom: "2px solid rgb(39, 122, 210)",
+                    paddingRight: "20px",
+                  }}
+                >
+                  Dr. {consultantName}
+                </p>
+                <span className="text-dark">
+                  M.S. (Ayurveda), P.H.D. (Ayurveda)
+                </span>
+                <br />
+                <span className="text-dark">Medical Officer</span>
+                <br />
+                <span className="text-dark">Dept. of Oral Medicine</span>
+              </div>
+            </div>
+            <div className="form-group px-3">
+              <PrescriptionPrintNew P={P} pname={patientName} age={age} />
+            </div>
+            <div className="row pb-3 ml-5 d-flex align-items-center">
+              <img
+                src="https://rohanileader.com/wp-content/uploads/2020/09/tracking-icon-png-29.png"
+                alt="Cloud Clinic Logo"
+                style={{ height: "60px" }}
+              />
+              <div className="text-left pl-4">
+                <span className="text-dark">123-456-7890, 444-324-3241</span>
+                <br />
+                <span className="text-dark">
+                  Street Address Here, City Name
+                </span>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog
         open={modalIsOpenPPrint}
         onClose={() => {
           setIsOpenPrescription(false);
@@ -2149,9 +2225,9 @@ const VirtualMeetingPost = (props) => {
           <div style={{ width: "95vw" }}>
             <div className="row py-3 mx-2 d-flex align-items-center">
               <img
-                src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "90px" }}
+                style={{ height: "50px",width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2206,9 +2282,9 @@ const VirtualMeetingPost = (props) => {
           <div style={{ width: "95vw" }}>
             <div className="row py-3 mx-2 d-flex align-items-center">
               <img
-                src="https://cloudclinicdevapi.azurewebsites.net/images/CloudClinicLogo.png"
+                src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "90px" }}
+                style={{ height: "50px",width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
