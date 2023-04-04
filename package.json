@@ -1,6 +1,6 @@
 {
   "name": "@coreui/coreui-free-react-admin-template",
-  "version": "4.0.2",
+  "version": "4.0.1",
   "description": "CoreUI React Open Source Bootstrap 4 Admin Template",
   "author": {
     "name": "CoreUI",
@@ -152,7 +152,7 @@
     "style-loader": "^1.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:cov": "npm test -- --coverage --watchAll=false",

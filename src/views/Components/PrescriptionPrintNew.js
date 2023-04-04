@@ -19,8 +19,8 @@ const PrescriptionPrintNew = (props) => {
             <div className="d-flex justify-content-around align-items-baseline bg-light p-3">
                 <p className="h5 m-0 text-dark">Name: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.pname}</span></p>
                 <p className="h5 m-0 text-dark">Age: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.age}</span></p>
-                <p className="h5 m-0 text-dark">Sex: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.gender}</span></p>
-                <p className="h5 m-0 text-dark">Visit Timing: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{new Date(props.std).toLocaleString("en-US", {
+                {/* <p className="h5 m-0 text-dark">Sex: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.gender}</span></p> */}
+                <p className="h5 m-0 text-dark">Visit Timing: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{new Date().toLocaleString("en-US", {
                     day: "2-digit",
                     month: "2-digit",
                     year: "2-digit",
@@ -47,11 +47,16 @@ const PrescriptionPrintNew = (props) => {
                                                 className="m-0 h4 text-dark font-weight-bold"
                                                 style={{ color: "#277ad2" }}
                                             >
-                                                {data.medicineName}{" ["} {data.medicineGenericName}{"] "}{data.dose}{" "}{data.durationUnit}{" for "}{data.duration}{" by: "}{data?.createdOn?.split("T")[0]}{" ("}{data.frequency}{")"}
+                                                {data.medicineName}{" [ "}{data.medicineGenericName}{" ] "}{" ("}{data.frequency}{")"}
                                             </p>
                                             <p className="m-0 text-info font-weight-bold">
                         <span className="text-info font-weight-bold">
-                          {data.dosageInstruction}
+                        {data.dose}{" "}{data.durationUnit}{" for "}{data.duration}{" starting: "}{data?.createdOn?.split("T")[0]}
+                        </span>
+                      </p>
+                                            <p className="m-0 text-info font-weight-bold">
+                        <span className="text-dark font-weight-bold">
+                          {"Instructions: "}{data.dosageInstruction}
                         </span>
                       </p>
                                         </div>

@@ -101,6 +101,7 @@ const VirtualMeetingPost = (props) => {
   const [patientNationalID, setPatientNationalID] = useState(null);
   const [identificationNo, setIdentificationNo] = useState(null);
   const [patientName, setPatientName] = useState(null);
+  const [patientGender, setPatientGender] = useState(null);
   const [modalIsOpenIntakeHistory, setIsOpenIntakeHistory] =
     React.useState(false);
   const [consultantNationalID, setConsultantNationalID] = useState(null);
@@ -319,8 +320,8 @@ const VirtualMeetingPost = (props) => {
     setIsOpenPPrintNew(true);
     setP(JSON.parse(localStorage.getItem("PrescriptionPrint")));
     setTimeout(() => {
-      window.print();
-      setIsOpenPPrintNew(false);
+      // window.print();
+      // setIsOpenPPrintNew(false);
       // handlePrint();
     }, 1000);
   }

@@ -803,7 +803,7 @@ const NewPrescriptionData = (props) => {
                                                     allFrequency.map((data, index) => (
                                                         <option
                                                             key={index}
-                                                            value={data.value}
+                                                            value={data.value2}
                                                         />
                                                     ))}
                                             </datalist>

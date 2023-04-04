@@ -49,7 +49,7 @@ const TheSidebar = (props) => {
       <div className="hamburger d-flex justify-content-end align-items-center mb-2">
         <img
           className="c-sidebar-brand-full py-1 px-2"
-          style={{ height: "60px", width: "170px" }}
+          style={{ height: "45px", width: "180px" }}
           src={link}
           alt="Dashboard"
         />
