@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 let userid = JSON.parse(localStorage.getItem("user"));
 let show;
 var roles = localStorage.getItem("roles");
-const LabTestData = (props) => {
+const PatientLabTestData = (props) => {
   const { translate } = useContext(TranslationContext);
   const authToken = useSelector((state) => state.userReducer.token);
   const [Diagnostic, SetDiagnostic] = useState("");
@@ -157,7 +157,6 @@ const LabTestData = (props) => {
   };
 
   const getAllDiagnostic = async () => {
-    // alert(props.visitID)
     const getAll = await fetch(
       `https://cloudclinicdevapi.azurewebsites.net/api/VisitLabTest/GetByVisit/${props.visitID}`,
       {
@@ -253,7 +252,6 @@ const LabTestData = (props) => {
 
   return (
     <div className="col-md-12 p-0  ">
-    
       <div className="row py-3 mx-2 d-flex justify-content-between"></div>
       <div className="form-group">
         {diagnosticUpdated && (
@@ -285,7 +283,7 @@ const LabTestData = (props) => {
             aria-expanded="false"
             aria-controls="collapseExample"
           >
-            <p className="m-0">Current Lab Tests</p>
+            <p className="m-0">Lab Tests</p>
             <p className="m-0 badge badge-info h5" style={{ color: "#FFFFFF" }}>
               {diagnosticCount?.continued}
             </p>
@@ -468,7 +466,7 @@ const LabTestData = (props) => {
             ))}
 
           {/* NEW PRESCRIPTION */}
-          {Role ? (
+          {/* {Role ? (
             <>
               {isLoading ? (
                 <li className="d-flex align-items-center py-2 border-bottom w-100 bg-light">
@@ -517,17 +515,17 @@ const LabTestData = (props) => {
                     >
                       {translate("ADD")}
                     </button>
-                    {/* <button
+                    <button
                 className="border-0 btn btn-sm btn-danger cc-btn py-2 border-0"
                 // onClick={() => createDiagnostic()}
               >
                 Delete
-              </button> */}
+              </button>
                   </div>
                 </li>
               )}
             </>
-          ) : null}
+          ) : null} */}
         </ul>
         <div className="d-flex align-items-center">
           {localDiagnostic.length > 0 && (
@@ -611,4 +609,4 @@ const LabTestData = (props) => {
     </div>
   );
 };
-export default LabTestData;
+export default PatientLabTestData;

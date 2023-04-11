@@ -320,8 +320,8 @@ const VirtualMeetingPost = (props) => {
     setIsOpenPPrintNew(true);
     setP(JSON.parse(localStorage.getItem("PrescriptionPrint")));
     setTimeout(() => {
-      // window.print();
-      // setIsOpenPPrintNew(false);
+      window.print();
+      setIsOpenPPrintNew(false);
       // handlePrint();
     }, 1000);
   }

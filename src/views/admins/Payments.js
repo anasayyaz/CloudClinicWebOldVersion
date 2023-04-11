@@ -845,7 +845,12 @@ class Payments extends React.Component {
                     <div className="mt-3 d-flex justify-content-between">
                         <h4 className="m-0">Payments List</h4>
                         <div className="text-right">
-                            <button className="btn btn-md mx-1">
+                            <button className="btn btn-md mx-1" onClick={this.show}>
+                                <span className="material-icons align-middle">
+                                    <PrintIcon />
+                                </span>
+                            </button>
+                            {/* <button className="btn btn-md mx-1">
                                 <span className="material-icons align-middle">
                                     <Search
                                         onClick={() => {
@@ -855,12 +860,8 @@ class Payments extends React.Component {
                                         }}
                                     />
                                 </span>
-                            </button>
-                            <button className="btn btn-md mx-1" onClick={this.show}>
-                                <span className="material-icons align-middle">
-                                    <PrintIcon />
-                                </span>
-                            </button>
+                            </button> */}
+
                             {/* <ReactToPrint
                                 trigger={() => (
                                    
