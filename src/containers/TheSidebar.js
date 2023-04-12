@@ -48,8 +48,8 @@ const TheSidebar = (props) => {
         /> */}
       <div className="hamburger d-flex justify-content-end align-items-center mb-2">
         <img
-          className="c-sidebar-brand-full py-1 px-2"
-          style={{ height: "45px", width: "180px" }}
+          className="c-sidebar-brand-full py-1 pl-4 pr-4"
+          style={{ height: "65%",width:"50%"}}
           src={link}
           alt="Dashboard"
         />

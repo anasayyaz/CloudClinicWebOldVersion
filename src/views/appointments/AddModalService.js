@@ -144,6 +144,7 @@ const AddEventModal = ({
     setIsOpenPaymentReceiptPrint(true);
     setTimeout(() => {
       window.print();
+      setIsOpenPaymentReceiptPrint(false);
     }, 2000);
   }
 

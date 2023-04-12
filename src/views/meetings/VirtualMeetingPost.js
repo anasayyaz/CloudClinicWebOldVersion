@@ -1861,7 +1861,7 @@ const VirtualMeetingPost = (props) => {
               {translate("HOLD_TO_SPEAK")}
             </button> */}
 
-            <Button
+            {/* <Button
               className="btn cc-btn"
               onClick={() => {
                 printA(data.initialComplain);
@@ -1872,7 +1872,7 @@ const VirtualMeetingPost = (props) => {
                 src="avatars/printer.png"
                 style={{ width: "20px", height: "20px" }}
               />
-            </Button>
+            </Button> */}
             <Button
               className="btn cc-btn"
               onClick={() => {
