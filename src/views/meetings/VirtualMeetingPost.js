@@ -327,30 +327,30 @@ const VirtualMeetingPost = (props) => {
   }
   function printL() {
     list(`VisitLabTest/GetByVisit/${visitID}`)
-    .then((response) => {
-     console.log(response);
-     console.log(response.data)
-      if (response == "Record not found in system") {
-        setLabTestData(null)
-      } else {
-        setLabTestData(response.data);
-        setIsOpenLPrint(true);
-      window.print();
-      setIsOpenLPrint(false);
-      }
-      // console.log(reportData.diagnostics)
-      // console.log(reportData.prescriptions)
-      // console.log(reportData.vitalsigns)
-      // console.log(reportData.visitLabTests)
+      .then((response) => {
+        console.log(response);
+        console.log(response.data)
+        if (response == "Record not found in system") {
+          setLabTestData(null)
+        } else {
+          setLabTestData(response.data);
+          setIsOpenLPrint(true);
+          window.print();
+          setIsOpenLPrint(false);
+        }
+        // console.log(reportData.diagnostics)
+        // console.log(reportData.prescriptions)
+        // console.log(reportData.vitalsigns)
+        // console.log(reportData.visitLabTests)
 
 
-      
 
-    })
-    .catch((error) => {
-      // toast.error("No Record Found");
-    });
-    
+
+      })
+      .catch((error) => {
+        // toast.error("No Record Found");
+      });
+
   }
   const printR = () => {
     //  toast.info("Please wait we are genrating report");
@@ -1164,7 +1164,7 @@ const VirtualMeetingPost = (props) => {
                       src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
-                      style={{ height: "50px",width: "200px" }}
+                      style={{ height: "50px", width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-6 mt-2 px-4"></div>
@@ -1432,7 +1432,7 @@ const VirtualMeetingPost = (props) => {
             className="modal-footer"
             style={{ width: "100%", float: "center" }}
           >
-             <Button
+            <Button
               className="btn cc-btn"
               onClick={() => {
                 printL();
@@ -1443,7 +1443,7 @@ const VirtualMeetingPost = (props) => {
                 style={{ width: "20px", height: "20px" }}
               />
             </Button>
-           {/* <Button
+            {/* <Button
               className="btn cc-btn"
               onClick={() => {
                 sendEmailP();
@@ -1723,7 +1723,7 @@ const VirtualMeetingPost = (props) => {
                       src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
-                      style={{ height: "50px",width: "200px" }}
+                      style={{ height: "50px", width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-12 mt-2 px-4">
@@ -1800,7 +1800,7 @@ const VirtualMeetingPost = (props) => {
                       src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
-                      style={{ height: "50px",width: "200px" }}
+                      style={{ height: "50px", width: "200px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-12 mt-2 px-4">
@@ -1861,7 +1861,7 @@ const VirtualMeetingPost = (props) => {
               {translate("HOLD_TO_SPEAK")}
             </button> */}
 
-            <Button
+            {/* <Button
               className="btn cc-btn"
               onClick={() => {
                 printA(data.initialComplain);
@@ -1872,7 +1872,7 @@ const VirtualMeetingPost = (props) => {
                 src="avatars/printer.png"
                 style={{ width: "20px", height: "20px" }}
               />
-            </Button>
+            </Button> */}
             <Button
               className="btn cc-btn"
               onClick={() => {
@@ -2114,7 +2114,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px",width: "200px" }}
+                style={{ height: "50px", width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2137,7 +2137,7 @@ const VirtualMeetingPost = (props) => {
               </div>
             </div>
             <div className="form-group px-3">
-             <LabTestPrint labTestData={labTestData} pname={patientName} age={age}/>
+              <LabTestPrint labTestData={labTestData} pname={patientName} age={age} />
             </div>
             <div className="row pb-3 ml-5 d-flex align-items-center">
               <img
@@ -2171,7 +2171,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px",width: "200px" }}
+                style={{ height: "50px", width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2228,7 +2228,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px",width: "200px" }}
+                style={{ height: "50px", width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2285,7 +2285,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px",width: "200px" }}
+                style={{ height: "50px", width: "200px" }}
               />
               <div className="text-left pl-4">
                 <p
