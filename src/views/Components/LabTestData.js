@@ -157,7 +157,6 @@ const LabTestData = (props) => {
   };
 
   const getAllDiagnostic = async () => {
-    // alert(props.visitID)
     const getAll = await fetch(
       `https://cloudclinicdevapi.azurewebsites.net/api/VisitLabTest/GetByVisit/${props.visitID}`,
       {
@@ -253,7 +252,6 @@ const LabTestData = (props) => {
 
   return (
     <div className="col-md-12 p-0  ">
-    
       <div className="row py-3 mx-2 d-flex justify-content-between"></div>
       <div className="form-group">
         {diagnosticUpdated && (

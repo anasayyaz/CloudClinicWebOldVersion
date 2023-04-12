@@ -114,7 +114,7 @@ var _default = (translate) => [
 
   {
     _tag: "CSidebarNavItem",
-    name: "Lab Tests",
+    name: "Lab Test Items",
     to: "/labtestitems",
     icon: { name: "cil-medical-cross", size: "2xl" },
   },

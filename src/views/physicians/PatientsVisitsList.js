@@ -16,7 +16,6 @@ import PopUp from "../Components/PopUp";
 import moment from "moment-timezone";
 import DiagnosisData from "../Components/DiagnosisData";
 import PrescriptionData from "../Components/PrescriptionData";
-import PatientLabTestData from "../Components/PatientLabTesData";
 import "./styles.css";
 import "./style.css";
 import "./ccstyles.css";
@@ -58,7 +57,6 @@ class PatientsVisitsList extends React.Component {
       visitstate: 0,
       visitId: null,
       showPrescription: false,
-      showLabTest:false,
       prescription: "",
       showInitialComplain: false,
       showIntakeHistory: false,
@@ -389,7 +387,7 @@ class PatientsVisitsList extends React.Component {
             show: true,
             value: "Lab Test",
             operation: (val) => {
-              this.showLabTest(val);
+              this.getUploadedFiles(val);
             },
           },
         },
@@ -740,29 +738,6 @@ class PatientsVisitsList extends React.Component {
 
     this.setState({ showPrescription: true });
   }
-
-
-  showLabTest(val) {
-    this.setState({ vid: val });
-    list(`visit/${val}`).then((response) => {
-      this.setState({
-        prescription: response.data.prescription,
-        number: response.data.patient.phone,
-        email: response.data.patient.email,
-      });
-    });
-
-    list(`visit/getVisit/${val}`).then((response) => {
-      this.calculateAge(response.data[0].dob);
-      this.setState({
-        cname: response.data[0].consultant,
-        cid: response.data[0].consultant_NationalID,
-      });
-    });
-
-    this.setState({ showLabTest: true });
-  }
-
   showInitialComplain(val) {
     this.setState({ vid: val });
     list(`visit/${val}`).then((response) => {
@@ -866,7 +841,6 @@ class PatientsVisitsList extends React.Component {
       prescription,
       modalEcgGraph,
       showPrescription,
-      showLabTest,
       initialComplain,
       showInitialComplain,
       showVitalSigns,
@@ -1917,52 +1891,6 @@ class PatientsVisitsList extends React.Component {
           name="showPrescription"
           content={
             <PrescriptionData
-              cname={this.state.cname}
-              visitID={this.state.vid}
-              consultantID={this.state.consultantID}
-            />
-          }
-        />
-             <PopUp
-          $class={this}
-          buttons={[
-            {
-              title: (
-                <img
-                  src="avatars/printer.png"
-                  style={{ width: "20px", height: "20px" }}
-                />
-              ),
-              className: "btn btn-secondary",
-              action: "print",
-            },
-            {
-              title: (
-                <img
-                  src="avatars/email.png"
-                  style={{ width: "20px", height: "20px" }}
-                />
-              ),
-              className: "btn btn-secondary",
-              action: "sendEmailP",
-            },
-            {
-              title: (
-                <img
-                  src="avatars/sms.png"
-                  style={{ width: "20px", height: "20px" }}
-                />
-              ),
-              className: "btn btn-secondary",
-              action: "sendSMSP",
-            },
-          ]}
-          show={showLabTest}
-          width="750px"
-          title="Lab Test"
-          name="showLabTest"
-          content={
-            <PatientLabTestData
               cname={this.state.cname}
               visitID={this.state.vid}
               consultantID={this.state.consultantID}

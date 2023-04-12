@@ -418,7 +418,7 @@ const NewPrescriptionData = (props) => {
 
     return (
         <div className="col-md-12 p-0  ">
-            {/* <div className="row py-3 mx-2 d-flex justify-content-between">
+            <div className="row py-3 mx-2 d-flex justify-content-between">
                 <img
                     src={link}
                     alt="Cloud Clinic Logo"
@@ -431,7 +431,7 @@ const NewPrescriptionData = (props) => {
                         <h5 className="pt-2 cc-form-input">{props.cname}</h5>
                     </div>
                 </div>
-            </div> */}
+            </div>
             <div className="form-group">
                 {prescriptionUpdated && (
                     <div
@@ -611,80 +611,7 @@ const NewPrescriptionData = (props) => {
                                                         } align-items-center justify-content-between py-2 border shadow-sm px-2 py-2 w-100`}
                                                     key={index}
                                                 >
-                                                    <div className="col-md-12 d-flex py-2">
-                                                        <div className="col-md-6">
-                                                            <p
-                                                                className="m-0 h5 cc-text-color font-weight-bold"
-                                                                style={{ color: "#277ad2" }}
-                                                            >
-                                                                {data.medicineName}
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {translate("GENRIC_NAME")}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.medicineGenericName}
-                                                                </span>
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {" "}
-                                                                {"Frequency"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.frequency}
-                                                                </span>{" "}
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {" "}
-                                                                {"Route"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.route}
-                                                                </span>{" "}
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {" "}
-                                                                {"Duration"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.duration}
-                                                                </span>{" "}
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {"Quantity"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.dose}
-                                                                </span>
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {"Unit"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.doseUnit}
-                                                                </span>
-                                                            </p>
-                                                            <p className="m-0 text-info font-weight-bold">
-                                                                {"Instructions"}:{" "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.dosageInstruction}
-                                                                </span>
-                                                            </p>
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <p className="mb-1 font-weight-bold">
-                                                                {translate("PRESCRIPTION_DETAILS")}:{" "}
-                                                            </p>
-                                                            <p className="mb-1 text-info font-weight-bold">
-                                                                {translate("PRESCRIBED")}{": "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data?.createdOn?.split("T")[0]}
-                                                                </span>
-                                                            </p>
-                                                            <p className="mb-1 text-info font-weight-bold">
-                                                                {translate("PRESCRIBED_BY")}{": "}
-                                                                <span className="text-dark font-weight-bold">
-                                                                    {data.physicianName}
-                                                                </span>
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                    {/* <div className="pr-2 col-md-12 border-bottom py-2">
+                                                    <div className="pr-2 col-md-12 border-bottom py-2">
                                                         <p
                                                             className="m-0 h5 cc-text-color font-weight-bold"
                                                             style={{ color: "#277ad2" }}
@@ -704,9 +631,9 @@ const NewPrescriptionData = (props) => {
                                                                 {data.dosageInstruction}
                                                             </span>{" "}
                                                         </p>
-                                                    </div> */}
+                                                    </div>
 
-                                                    {/* <div className="col-md-12 d-flex py-2">
+                                                    <div className="col-md-12 d-flex py-2">
                                                         <div className="col-md-6">
                                                             <p className="mb-1 font-weight-bold">
                                                                 {translate("PRESCRIPTION_DETAILS")}:{" "}
@@ -735,7 +662,7 @@ const NewPrescriptionData = (props) => {
                                                                 </span>
                                                             </p>
                                                         </div>
-                                                    </div> */}
+                                                    </div>
                                                     <div className="text-right">
                                                         <button
                                                             className="btn cc-btn btn-sm rounded-pill"
@@ -930,17 +857,6 @@ const NewPrescriptionData = (props) => {
                                         </div>
                                         <div className="font-weight-bold col-md-2">
                                             <input
-                                                type="number"
-                                                id="doseNum-input"
-                                                className="form-control"
-                                                placeholder={"Quantity"}
-                                                ref={dosageNumRef}
-                                                onChange={localPrescriptionHandler}
-                                            />
-
-                                        </div>
-                                        <div className="font-weight-bold col-md-2">
-                                            <input
                                                 list="doseUnit"
                                                 id="durationUnit-input"
                                                 className="form-control"
@@ -958,7 +874,33 @@ const NewPrescriptionData = (props) => {
                                                     ))}
                                             </datalist>
                                         </div>
-
+                                        <div className="font-weight-bold col-md-2">
+                                            <input
+                                                type="number"
+                                                id="doseNum-input"
+                                                className="form-control"
+                                                placeholder={"Quantity"}
+                                                ref={dosageNumRef}
+                                                onChange={localPrescriptionHandler}
+                                            />
+                                            {/* <input
+                                                type="text"
+                                                id="dosage"
+                                                className="form-control"
+                                                placeholder={translate("DOSAGE_INSTRUCTIONS")}
+                                                value={dosageInstruction}
+                                                onChange={(e) => setDosageInstruction(e.target.value)}
+                                            /> */}
+                                            {/* <datalist id="doseUnit" className="cutom-select">
+                                                {allDoseUnit &&
+                                                    allDoseUnit.map((data, index) => (
+                                                        <option
+                                                            key={index}
+                                                            value={data.title}
+                                                        />
+                                                    ))}
+                                            </datalist> */}
+                                        </div>
                                         <div className="font-weight-bold col-md-4">
 
                                             <input

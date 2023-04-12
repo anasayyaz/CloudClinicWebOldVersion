@@ -90,16 +90,16 @@ export default class EditNurse extends React.Component {
       validate["EC"] = !this.state.EmployeeCode
         ? false
         : functions.validateEmployeCode(event.target.value)
-          ? true
-          : false;
+        ? true
+        : false;
       this.setState({ validate });
     }
     if (event.target.id === "Email" && !validate.Email) {
       validate["Email"] = !this.state.Email
         ? false
         : functions.validateEmail(event.target.value)
-          ? true
-          : false;
+        ? true
+        : false;
       this.setState({ validate });
     }
 
@@ -174,13 +174,13 @@ export default class EditNurse extends React.Component {
         validate["EC"] = !this.state.EmployeeCode
           ? false
           : functions.validateEmployeCode(this.state.EmployeeCode)
-            ? true
-            : false;
+          ? true
+          : false;
         validate["Email"] = !this.state.Email
           ? false
           : functions.validateEmail(this.state.Email)
-            ? true
-            : false;
+          ? true
+          : false;
         this.setState({ validate });
       } else {
         console.log(this.state);
@@ -215,12 +215,12 @@ export default class EditNurse extends React.Component {
   handleReset() {
     toast.info(
       "New password sent to user " +
-      this.state.name +
-      " on Email: " +
-      this.state.Email
+        this.state.name +
+        " on Email: " +
+        this.state.Email
     );
     put(`accounts/resentPassword/${this.state.userID}`, {}).then(
-      (response) => { }
+      (response) => {}
     );
   }
   onDeleteNurse = () => {
@@ -387,6 +387,7 @@ export default class EditNurse extends React.Component {
                     <TextField
                       required
                       fullWidth
+                      disabled
                       id="nationalID"
                       type="text"
                       value={this.state.nationalID}
