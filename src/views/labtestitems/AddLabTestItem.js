@@ -6,7 +6,7 @@ import { Snackbar } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
 import TranslationContext from "../../context/translation";
 let userid = JSON.parse(localStorage.getItem("user"));
-export default class AddMedicine extends React.Component {
+export default class AddLabTestItem extends React.Component {
   static contextType = TranslationContext;
   constructor(props) {
     super(props);

@@ -5,6 +5,7 @@ const Medicines = React.lazy(() => import('./views/medicines/Medicines'));
 const AddMedicine = React.lazy(() => import('./views/medicines/AddMedicine'));
 const EditMedicine = React.lazy(() => import('./views/medicines/EditMedicine'));
 const LabTestItems = React.lazy(() => import('./views/labtestitems/LabTestItems'));
+const AddLabTestItem = React.lazy(() => import('./views/labtestitems/AddLabTestItem'));
 const Patients = React.lazy(() => import('./views/patients/Patients'));
 const AtHome = React.lazy(() => import('./views/pages/login/AtHome'));
 const MobileGraph = React.lazy(() => import("./views/mobile/MobileGraph"))
@@ -227,6 +228,11 @@ const routes = [
     path: "/AddMedicine",
     name: "AddMedicine",
     component: AddMedicine,
+  },
+  {
+    path: "/AddLabTestItem",
+    name: "AddLabTestItem",
+    component: AddLabTestItem,
   },
   {
     path: "/EditMedicine/:id",
