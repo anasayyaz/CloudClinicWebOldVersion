@@ -404,7 +404,7 @@ const NewAppointmentCardPhysician = (props) => {
               </button>
             </div>
             <div class="modal-body">
-              <VitalSigns consultant={id} />
+              <VitalSigns visitID={id}  />
             </div>
             <div class="modal-footer">
               <button

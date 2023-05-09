@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import moment from "moment";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -19,6 +19,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import ReceiptPrint from "../Components/ReceiptPrint";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { ToastContainer, toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import {
   defaultDate,
   startEndDate,
@@ -28,11 +29,14 @@ import {
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import DateTimePicker from "react-datetime-picker";
+const safeDocument = typeof document !== 'undefined' ? document : {};
 let image = localStorage.getItem("image");
+let domainName = localStorage.getItem("domainName");
+let domain = localStorage.getItem("domain");
 let role = localStorage.getItem("role");
 let name = JSON.parse(localStorage.getItem("user"));
 let link = `https://cloudclinicdevapi.azurewebsites.net/images/${image}`;
-let type, ID, speciality, Status, feeList,numID,doctorName,patientName,doctorSpeciality;
+let type, ID, speciality, Status, feeList, numID, doctorName, patientName, doctorSpeciality, age, phoneNumber, genderPatient;
 const AddEventModal = ({
   show,
   handleClose,
@@ -69,6 +73,8 @@ const AddEventModal = ({
   const [defaultStartDate, setDefaultStartDate] = React.useState();
   const [defaultEndDate, setDefaultEndDate] = React.useState();
   const [selectedValue, setSelectedValue] = React.useState("");
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
+  const history = useHistory();
   const [data, setData] = React.useState({
     nationalID: "",
     name: "",
@@ -87,6 +93,43 @@ const AddEventModal = ({
   });
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
+  };
+  const scrollBlocked = useRef();
+  const html = safeDocument.documentElement;
+  const { body } = safeDocument;
+
+  const blockScroll = () => {
+    if (!body || !body.style || scrollBlocked.current) return;
+
+    const scrollBarWidth = window.innerWidth - html.clientWidth;
+    const bodyPaddingRight =
+      parseInt(window.getComputedStyle(body).getPropertyValue("padding-right")) || 0;
+
+    /**
+     * 1. Fixes a bug in iOS and desktop Safari whereby setting
+     *    `overflow: hidden` on the html/body does not prevent scrolling.
+     * 2. Fixes a bug in desktop Safari where `overflowY` does not prevent
+     *    scroll if an `overflow-x` style is also applied to the body.
+     */
+    html.style.position = 'relative'; /* [1] */
+    html.style.overflow = 'hidden'; /* [2] */
+    body.style.position = 'relative'; /* [1] */
+    body.style.overflow = 'hidden'; /* [2] */
+    body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
+
+    scrollBlocked.current = true;
+  };
+
+  const allowScroll = () => {
+    if (!body || !body.style || !scrollBlocked.current) return;
+
+    html.style.position = '';
+    html.style.overflow = '';
+    body.style.position = '';
+    body.style.overflow = '';
+    body.style.paddingRight = '';
+
+    scrollBlocked.current = false;
   };
   function handleTitleChange(event) {
     setTitle(event.target.value);
@@ -126,12 +169,30 @@ const AddEventModal = ({
     post("visit", event)
       .then((response) => {
         toast.success("Appointment has been created successfully");
-        setTimeout(() => {
+        list(`patient/${response.data.patient_NationalID}`).then((responseInner) => {
 
-          setIsOpenPaymentReceipt(true);
-        }, 2000);
+
+          var today = new Date();
+          var birthDate = new Date(responseInner.data.dob); // create a date object directly from `dob1` argument
+          var age_now = today.getFullYear() - birthDate.getFullYear();
+          var m = today.getMonth() - birthDate.getMonth();
+          if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age_now--;
+          }
+          age = age_now;
+
+          genderPatient = responseInner.data.gender;
+          phoneNumber = responseInner.data.phone;
+
+
+          setTimeout(() => {
+
+            setIsOpenPaymentReceipt(true);
+          }, 2000);
+        });
+
         getVisits();
-        numID=response.data.id;
+        numID = response.data.id;
       })
       .catch((error) =>
         toast.error("there was an error creating the appointment")
@@ -140,12 +201,15 @@ const AddEventModal = ({
 
 
   function printReceipt() {
-    setIsOpenPaymentReceipt(false);
-    setIsOpenPaymentReceiptPrint(true);
+  
+     setIsOpenPaymentReceipt(false);
+     setIsOpenPaymentReceiptPrint(true);
+
+
     setTimeout(() => {
       window.print();
       setIsOpenPaymentReceiptPrint(false);
-    }, 2000);
+    }, 3000);
   }
 
   function convertTZ(date, tzString) {
@@ -195,8 +259,8 @@ const AddEventModal = ({
   function getConsultantID(ID) {
     list(`physician/${ID}`).then((response) => {
       speciality = response.data.speciality;
-      doctorName = response.data.name+" "+response.data.lastName
-     
+      doctorName = response.data.name + " " + response.data.lastName
+
     });
     let x;
     list(`/physicianFee/getPhysicianFee/${ID}`).then((response) => {
@@ -219,9 +283,9 @@ const AddEventModal = ({
     setPatient(id);
     data.isAppointmentSchedule = false;
     data["tag"] = "Appointment";
-    put(`patient/updatePatientTag/${Patient}`, data)  .then((response) => {
-   
-    patientName=response.data.aspNetUser.firstName+" "+response.data.aspNetUser.lastName;
+    put(`patient/updatePatientTag/${Patient}`, data).then((response) => {
+
+      patientName = response.data.aspNetUser.firstName + " " + response.data.aspNetUser.lastName;
     });
   }
   function setDates() {
@@ -239,6 +303,7 @@ const AddEventModal = ({
     setValidation(valid);
   }
   useEffect(() => {
+
     eventStartDate && setDates();
     setNewStartDatePicker(eventStartDate);
     setNewEndDatePicker(eventEndDate);
@@ -267,19 +332,75 @@ const AddEventModal = ({
         maxWidth="true"
       >
         <DialogContent>
-          <div style={{ width: "90vw" }}>
-            <div className="row py-3 mx-2 d-flex align-items-center">
-              <img
-                src={link}
-                alt="Cloud Clinic Logo"
-                style={{ height: "90px" }}
-              />
+          <div style={{
+            width: "90vw"
+          }}>
 
+            <div>
+              <div className="row py-3 mx-2  align-items-center">
+                <img
+                  src={link}
+                  alt="Cloud Clinic Logo"
+                  style={{ height: "50px" }}
+                />
+
+                <div className="text-left pl-4">
+
+                  <h1 className="text-dark border-bottom font-weight-bold">
+                    {domainName}
+                  </h1>
+                  <div className="row ml-1 d-flex align-items-center">
+                    <img
+                      src="https://rohanileader.com/wp-content/uploads/2020/09/tracking-icon-png-29.png"
+                      alt="Cloud Clinic Logo"
+                      style={{ height: "30px" }}
+                    />
+                     {domain == "cdc" ?(<span className="text-dark  font-weight-bold">
+                  {domainName} (I-10 Markaz) , Islamabad  <br /> 0323/0311-5159616, 051-2507919-5871361-2254021
+                </span>) : (<span className="text-dark  font-weight-bold">
+                  {domainName} Near Asghar Mall Chowk Adjacent Bank Al-Falah، 797 Saidpur Rd, Block E Asghar Mall Scheme
+                </span>)}
+                  </div>
+                </div>
+
+              </div>
+              <div className="form-group px-3 ">
+                <ReceiptPrint age={age} phone={phoneNumber} gender={genderPatient} Title={Title} std={newStartDatePicker} meetingType={type} amount={amount} id={numID} patientName={patientName} doctorName={doctorName} speciality={speciality} />
+              </div>
             </div>
-            <div className="form-group px-3">
-              <ReceiptPrint Title={Title}  std={newStartDatePicker} meetingType={type} amount={amount}  id={numID} patientName={patientName} doctorName={doctorName} speciality={speciality}/>
+            <div>
+              <div className="row py-3 mx-2  align-items-center">
+                <img
+                  src={link}
+                  alt="Cloud Clinic Logo"
+                  style={{ height: "50px" }}
+                />
+
+                <div className="text-left pl-4">
+
+                  <h1 className="text-dark border-bottom font-weight-bold">
+                    {domainName}
+                  </h1>
+                  <div className="row ml-1 d-flex align-items-center">
+                    <img
+                      src="https://rohanileader.com/wp-content/uploads/2020/09/tracking-icon-png-29.png"
+                      alt="Cloud Clinic Logo"
+                      style={{ height: "30px" }}
+                    />
+                    {domain == "cdc" ?(<span className="text-dark  font-weight-bold">
+                  {domainName} (I-10 Markaz) , Islamabad  <br /> 0323/0311-5159616, 051-2507919-5871361-2254021
+                </span>) : (<span className="text-dark  font-weight-bold">
+                  {domainName} Near Asghar Mall Chowk Adjacent Bank Al-Falah، 797 Saidpur Rd, Block E Asghar Mall Scheme
+                </span>)}
+                  </div>
+                </div>
+
+              </div>
+              <div className="form-group px-3 ">
+                <ReceiptPrint age={age} phone={phoneNumber} gender={genderPatient} Title={Title} std={newStartDatePicker} meetingType={type} amount={amount} id={numID} patientName={patientName} doctorName={doctorName} speciality={speciality} />
+              </div>
             </div>
-            <div className="row pb-3 ml-5 d-flex align-items-center">
+            {/* <div className="row pb-3 ml-5 d-flex align-items-center">
               <img
                 src="https://rohanileader.com/wp-content/uploads/2020/09/tracking-icon-png-29.png"
                 alt="Cloud Clinic Logo"
@@ -292,7 +413,7 @@ const AddEventModal = ({
                   Street Address Here, City Name
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </DialogContent>
       </Dialog>

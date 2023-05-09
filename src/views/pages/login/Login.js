@@ -186,8 +186,10 @@ const Login = () => {
           "intake_monitoring",
           parseJwt(token).IntakeMonitoring
         );
-        localStorage.setItem("image", parseJwt(token).Image);
 
+        localStorage.setItem("image", parseJwt(token).Image);
+        localStorage.setItem("domainName",parseJwt(token).Name)
+        // alert(parseJwt(token).Name)
         let headers = {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -246,7 +248,7 @@ const Login = () => {
                   });
                 }
               }
-             
+
               setAlert({
                 ...alertPopup,
                 open: true,
@@ -258,19 +260,19 @@ const Login = () => {
               setShowLoading(true);
               setTimeout(() => {
                 if (res.data[0].roles == "Receptionist")
-                window.location.assign("/#/ReceptionistDashboard");
-              else if (res.data[0].roles == "Physician")
-                window.location.assign("/#/PhysicianDashboard");
-              else if (res.data[0].roles == "Consultant")
-                window.location.assign("/#/ConsultantDashboard");
-              else if (res.data[0].roles == "Admin")
-                window.location.assign("/#/AdminDashboard");
-              else if (res.data[0].roles == "Nurse")
-                window.location.assign("/#/NurseDashboard");
-              else if (res.data[0].roles == "Patient")
-                window.location.assign("/#/PatientDashboard");
+                  window.location.assign("/#/ReceptionistDashboard");
+                else if (res.data[0].roles == "Physician")
+                  window.location.assign("/#/PhysicianDashboard");
+                else if (res.data[0].roles == "Consultant")
+                  window.location.assign("/#/ConsultantDashboard");
+                else if (res.data[0].roles == "Admin")
+                  window.location.assign("/#/AdminDashboard");
+                else if (res.data[0].roles == "Nurse")
+                  window.location.assign("/#/NurseDashboard");
+                else if (res.data[0].roles == "Patient")
+                  window.location.assign("/#/PatientDashboard");
               }, 2000);
-           
+
             }
           })
           .catch((error) => {
@@ -384,16 +386,16 @@ const Login = () => {
                               <label>{translate("PASSWORD")}</label>
                             </div>
                             <div className="d-flex justify-content-end">
-                            {passwordType == "password" ? (
-                              <Button
-                              className="cc-btn"
-                              onClick={togglePassword}
-                              >
-                                Show Password
-                              </Button>
-                            ) : (<Button
-                              className="cc-btn"
-                              onClick={togglePassword}
+                              {passwordType == "password" ? (
+                                <Button
+                                  className="cc-btn"
+                                  onClick={togglePassword}
+                                >
+                                  Show Password
+                                </Button>
+                              ) : (<Button
+                                className="cc-btn"
+                                onClick={togglePassword}
                               >
                                 Hide Password
                               </Button>)}
@@ -454,7 +456,7 @@ const Login = () => {
                       id="login-vector"
                     />
                     <div className="d-flex align-items-center justify-content-center mt-2">
-                   
+
                       <div
                         className="col-md-6 "
                         onClick={() => {
@@ -470,7 +472,7 @@ const Login = () => {
                           src="avatars/anew.png"
                           id="login-vector"
                         />
-                     
+
                       </div>
                       <div className="col-md-6 border-left"
                         onClick={() => {
@@ -486,7 +488,7 @@ const Login = () => {
                           src="avatars/inew.png"
                           id="login-vector"
                         />
-                       
+
                       </div>
                     </div>
                   </div>
@@ -529,7 +531,7 @@ const Login = () => {
               }}
               id="alert-dialog-title"
             >
-            <p> Scan to get Mobile Application  <Button
+              <p> Scan to get Mobile Application  <Button
                 color="secondary"
                 onClick={() => {
                   setIsOpenFileUpload(false);
@@ -543,33 +545,33 @@ const Login = () => {
               >
                 X
               </Button></p>
-            
+
             </DialogTitle>
             <div >
               <DialogContent>
-              <div
-             className="d-flex justify-content-center"
-             style={{widht:"40vw" ,margin: "40px"}}
-            >
-                {type==1 ? (
-                  <img
-                          style={{
-                            height: "350px",
-                            width: "350px",
-                          }}
-                          src="avatars/android.jpeg"
-                          id="login-vector"
-                        />
-                ) : (
-                  <img
-                          style={{
-                            height: "350px",
-                            width: "350px",
-                          }}
-                          src="avatars/ios.jpeg"
-                          id="login-vector"
-                        />
-                )}
+                <div
+                  className="d-flex justify-content-center"
+                  style={{ widht: "40vw", margin: "40px" }}
+                >
+                  {type == 1 ? (
+                    <img
+                      style={{
+                        height: "350px",
+                        width: "350px",
+                      }}
+                      src="avatars/android.jpeg"
+                      id="login-vector"
+                    />
+                  ) : (
+                    <img
+                      style={{
+                        height: "350px",
+                        width: "350px",
+                      }}
+                      src="avatars/ios.jpeg"
+                      id="login-vector"
+                    />
+                  )}
                 </div>
               </DialogContent>
             </div>

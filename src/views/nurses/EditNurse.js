@@ -24,7 +24,7 @@ export default class EditNurse extends React.Component {
     super(props);
     this.validate = {
       name: true,
-      nationalID: true,
+      // nationalID: true,
       Email: true,
       EC: true,
     };
@@ -40,7 +40,7 @@ export default class EditNurse extends React.Component {
       modalDelete: false,
       validatePhone: false,
       Role: false,
-      nationalID: "",
+      nationalID: this.props.match.params.id,
       healthCareLicenseID: "",
       titles: "",
       name: "",
@@ -113,7 +113,7 @@ export default class EditNurse extends React.Component {
       this.setState({ Role: true });
     }
     this.setState({ Role: "Nurse" });
-    list(`physician/${this.props.match.params.id}`).then((response) => {
+    list(`physician/${this.state.nationalID}`).then((response) => {
       this.setState({
         nationalID: response.data.nationalID,
         healthCareLicenseID: response.data.healthCareLicenseID,
@@ -293,7 +293,7 @@ export default class EditNurse extends React.Component {
           </Alert>
         </Snackbar>
         <ToastContainer />
-        {this.state.nationalID && (
+        {/* {this.state.nationalID && ( */}
           <div className="container px-4 col-12 m-0 pt-4 h-100 overflow-auto">
             <div className="row w-100 d-flex justify-content-between m-0">
               <div className="d-flex align-items-center">
@@ -408,11 +408,11 @@ export default class EditNurse extends React.Component {
                       onChange={this.handleChange}
                       label="National Identification Code"
                     />
-                    {!this.state.validate.nationalID && (
+                    {/* {!this.state.validate.nationalID && (
                       <span className="text-danger">
                         National ID is Mandatory
                       </span>
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="col-md-3">
@@ -548,7 +548,7 @@ export default class EditNurse extends React.Component {
               </div>
             </div>
           </div>
-        )}
+         {/* )} */}
       </>
     );
   }

@@ -105,8 +105,8 @@ const NewAppointmentCard = (props) => {
   }
 
   function goToMeeting(type, id) {
-     alert(type);
-     alert(intake_monitoring);
+    //  alert(type);
+    //  alert(intake_monitoring);
     if (intake_monitoring == "PreMonitoring") {
       // alert("PRE");
       if (type == "Virtual") {

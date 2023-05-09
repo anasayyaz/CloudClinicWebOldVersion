@@ -120,6 +120,12 @@ var _default = (translate) => [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "Speciality",
+    to: "/AddSpeciality",
+    icon: { name: "cil-medical-cross", size: "2xl" },
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: translate("WARDS"),
     to: "/wards",
     icon: { name: "cil-medical-cross", size: "2xl" },

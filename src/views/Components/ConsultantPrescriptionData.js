@@ -165,7 +165,7 @@ const ConsultantPrescriptionData = (props) => {
 
   const getAllPrescription = async () => {
     const getAll = await fetch(
-      `https://cloudclinicdevapi.azurewebsites.net/api/prescription/PrescriptionByPatient/${props.patientID}`,
+      `https://cloudclinicdevapi.azurewebsites.net/api/prescription/GetPrescriptionByVisit/${props.visitID}`,
       {
         method: "GET",
         headers: {

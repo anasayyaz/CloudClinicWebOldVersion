@@ -286,7 +286,7 @@ const NewPrescriptionData = (props) => {
 
     const getAllPrescription = async () => {
         const getAll = await fetch(
-            `https://cloudclinicdevapi.azurewebsites.net/api/prescription/PrescriptionByPatient/${props.patientID}`,
+            `https://cloudclinicdevapi.azurewebsites.net/api/prescription/GetPrescriptionByVisit/${props.visitID}`,
             {
                 method: "GET",
                 headers: {
@@ -423,7 +423,7 @@ const NewPrescriptionData = (props) => {
                     src={link}
                     alt="Cloud Clinic Logo"
                     className="cc_logo"
-                    style={{ height: "60px", width: "240px" }}
+                    style={{ height: "50px"}}
                 />
                 <div className="text-right">
                     <div className="w-100 d-flex align-items-baseline col-md-6 mt-2 px-4">

@@ -20,7 +20,7 @@ const PrescriptionPrintNew = (props) => {
                 <p className="h5 m-0 text-dark">Name: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.pname}</span></p>
                 <p className="h5 m-0 text-dark">Age: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.age}</span></p>
                 {/* <p className="h5 m-0 text-dark">Sex: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{props.gender}</span></p> */}
-                <p className="h5 m-0 text-dark">Visit Timing: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{new Date().toLocaleString("en-US", {
+                <p className="h5 m-0 text-dark">Date: <span className="font-weight-bold" style={{ color: "rgb(39, 122, 210)" }}>{new Date().toLocaleString("en-US", {
                     day: "2-digit",
                     month: "2-digit",
                     year: "2-digit",
@@ -31,7 +31,10 @@ const PrescriptionPrintNew = (props) => {
             <React.Fragment>
                 {props.P &&
                     props.P.map((data, index) => (
-                        <React.Fragment key={index}>
+                      <div className="row">
+                        {/* <div className="col-md-2 border-right mt-3 mb-3"></div> */}
+                       
+                        <div className="col-md-12   "> <React.Fragment key={index}>
                             <p className="m-0 text-white" style={{ fontSize: "0.1rem" }}>
                                 <small>...</small>
                             </p>
@@ -47,11 +50,14 @@ const PrescriptionPrintNew = (props) => {
                                                 className="m-0 h4 text-dark font-weight-bold"
                                                 style={{ color: "#277ad2" }}
                                             >
-                                                {data.medicineName}{" [ "}{data.medicineGenericName}{" ] "}{" ("}{data.frequency}{")"}
+                                                {data.medicineName}{" ("}{data.frequency}{")"}
                                             </p>
+
+                                            {/* {" [ "}{data.medicineGenericName}{" ] "} */}
                                             <p className="m-0 text-info font-weight-bold">
                         <span className="text-info font-weight-bold">
-                        {data.dose}{" "}{data.durationUnit}{" for "}{data.duration}{" starting: "}{data?.createdOn?.split("T")[0]}
+                        {data.dose}{" "}{data.durationUnit}
+                        {/* {" for "}{data.duration}{" starting: "}{data?.createdOn?.split("T")[0]} */}
                         </span>
                       </p>
                                             <p className="m-0 text-info font-weight-bold">
@@ -110,7 +116,9 @@ const PrescriptionPrintNew = (props) => {
                                     </div>
                                 </li>
                             )}
-                        </React.Fragment>
+                        </React.Fragment></div>
+                       
+                        </div>
                     ))}
             </React.Fragment>
 

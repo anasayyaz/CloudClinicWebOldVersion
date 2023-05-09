@@ -2,7 +2,7 @@ import { data } from "jquery";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { useSelector } from "react-redux";
 import TranslationContext from "../../context/translation";
-
+let userId = JSON.parse(localStorage.getItem("user"));
 const ConsultantPrescriptionData = (props) => {
   const { translate } = useContext(TranslationContext);
   const authToken = useSelector((state) => state.userReducer.token);
@@ -160,7 +160,7 @@ const ConsultantPrescriptionData = (props) => {
 
   const getAllPrescription = async () => {
     const getAll = await fetch(
-      `https://cloudclinicdevapi.azurewebsites.net/api/prescription/PrescriptionByPatient/${props.patientID}`,
+      `https://cloudclinicdevapi.azurewebsites.net/api/prescription/PrescriptionByUser/${userId}`,
       {
         method: "GET",
         headers: {

@@ -12,8 +12,8 @@ export default class AddLabTestItem extends React.Component {
     super(props);
 
     this.validate = {
-      name: true,
-      genericName: true
+      test: true,
+      code: true
     }
 
     this.alert = {
@@ -24,11 +24,13 @@ export default class AddLabTestItem extends React.Component {
     }
 
     this.state = {
-      name: '',
-      genericName: '',
-      purpose: '',
-      dosageForm: '',
+      test: '',
+      code: '',
+      type: '',
+      category: '',
+      rate: '',
       isDeleted: 'false',
+      isActive:true,
       validate: this.validate,
       alert: this.alert
     };
@@ -36,8 +38,8 @@ export default class AddLabTestItem extends React.Component {
   }
   handleChange(event) {
     let { validate } = this.state;
-    if (!validate.genericName || !validate.name) {
-      validate['genericName'] = !this.state.genericName ? false : true;
+    if (!validate.code || !validate.name) {
+      validate['code'] = !this.state.code ? false : true;
       validate['name'] = !this.state.name ? false : true;
       this.setState({ validate })
     }
@@ -46,30 +48,32 @@ export default class AddLabTestItem extends React.Component {
 
   onCreateMedicine = () => {
     let { validate } = this.state;
-    if (!this.state.genericName || !this.state.name) {
-      validate['genericName'] = !this.state.genericName ? false : true;
-      validate['name'] = !this.state.name ? false : true;
-      this.setState({ validate })
-    } else {
-      post('medicine', {
-        name: this.state.name,
-        genericName: this.state.genericName,
-        purpose: this.state.purpose,
-        dosageForm: this.state.dosageForm,
+    // if (!this.state.code || !this.state.name) {
+    //   validate['code'] = !this.state.code ? false : true;
+    //   validate['name'] = !this.state.name ? false : true;
+    //   this.setState({ validate })
+    // } else {
+      post('labtesttype', {
+        test: this.state.test,
+        code: this.state.code,
+        type: this.state.type,
+        category: this.state.category,
+        rate:this.state.rate,
         CreatedBy: userid,
         CreatedOn: new Date(),
+        isActive:true
       }).then((response) => {
-          this.setState({ alert: { open: true, severity: 'success', message: 'Medicine successfully added', title: 'Success' } })
-          setTimeout(() => {
-            this.props.history.push('/medicines')
-          }, 1000);
-        }).catch((error) => {
-            this.setState({ alert: { open: true, severity: 'error', message: 'Something went wrong', title: 'Error' } })
-        });
-    }
+        this.setState({ alert: { open: true, severity: 'success', message: 'Lab Test successfully added', title: 'Success' } })
+        setTimeout(() => {
+          this.props.history.push('/labtestitems')
+        }, 1000);
+      }).catch((error) => {
+        this.setState({ alert: { open: true, severity: 'error', message: 'Something went wrong', title: 'Error' } })
+      });
+    // }
   }
   handleClose() {
-    this.setState({ alert:{...this.state.alert, open: false} })
+    this.setState({ alert: { ...this.state.alert, open: false } })
   }
 
   render() {
@@ -77,8 +81,8 @@ export default class AddLabTestItem extends React.Component {
     let { alert } = this.state;
     return (
       <>
-        <Snackbar open={alert.open}                  
-        autoHideDuration={2000}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                anchorOrigin={{ vertical: 'top', horizontal: 'right' }} onClose={() => { this.handleClose() }}>
+        <Snackbar open={alert.open}
+          autoHideDuration={2000} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} onClose={() => { this.handleClose() }}>
           <Alert onClose={() => { this.handleClose() }} severity={alert.severity}>
             <AlertTitle>{alert.title}</AlertTitle>
             <strong>{alert.message}</strong>
@@ -89,14 +93,14 @@ export default class AddLabTestItem extends React.Component {
           <div className="row w-100 d-flex justify-content-between m-0">
             <div className="d-flex align-items-center">
               <p className="m-0 cc-page-title text-uppercase pl-2">
-              {translate("ADD_NEW_MEDICINE")}
-            </p>
+                {"Add New Lab Test"}
+              </p>
             </div>
 
             <div className="col-md-2 px-1">
               <NavLink
                 className="w-100 border-0 shadow btn btn-md cc-btn"
-                to={`/Medicines`} > {translate("VIEW_MEDICINES")}
+                to={`/labtestitems`} > {"View Lab Tests"}
               </NavLink>
             </div>
           </div>
@@ -108,12 +112,12 @@ export default class AddLabTestItem extends React.Component {
                   <TextField
                     required
                     fullWidth
-                    id="name"
+                    id="test"
                     type="text"
                     onChange={this.handleChange}
-                    label={translate("NAME")}
+                    label={"Test"}
                   />
-                  {!this.state.validate.name && <span className="text-danger">Name is Mandatory</span>}
+                  {/* {!this.state.validate.name && <span className="text-danger">Name is Mandatory</span>} */}
                 </div>
               </div>
               <div className="col-md-6">
@@ -121,35 +125,46 @@ export default class AddLabTestItem extends React.Component {
                   <TextField
                     required
                     fullWidth
-                    id="genericName"
+                    id="code"
                     type="text"
                     onChange={this.handleChange}
-                    label={translate("GENRIC_NAME")}
+                    label={"Code"}
                   />
-                  {!this.state.validate.genericName && <span className="text-danger">Generic Name is Mandatory</span>}
+                  {/* {!this.state.validate.code && <span className="text-danger">Generic Name is Mandatory</span>} */}
                 </div>
               </div>
 
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="input-container">
                   <TextField
                     fullWidth
-                    id="purpose"
+                    id="type"
                     type="text"
                     onChange={this.handleChange}
-                    label={translate("PURPOSE")}
+                    label={"Type"}
                   />
                 </div>
               </div>
 
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="input-container">
                   <TextField
                     fullWidth
-                    id="dosageForm"
+                    id="category"
                     type="text"
                     onChange={this.handleChange}
-                    label={translate("DOSAGE_FORM")}
+                    label={"Category"}
+                  />
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="input-container">
+                  <TextField
+                    fullWidth
+                    id="rate"
+                    type="number"
+                    onChange={this.handleChange}
+                    label={"Rate"}
                   />
                 </div>
               </div>
@@ -158,8 +173,8 @@ export default class AddLabTestItem extends React.Component {
             <div className="row px-2 mt-1 d-flex justify-content-end">
               <div className="col-md-2 px-1">
                 <button onClick={() => { this.onCreateMedicine() }} className="w-100 border-0 shadow btn btn-md cc-btn">
-                {translate("SAVE")}
-              </button>
+                  {translate("SAVE")}
+                </button>
               </div>
             </div>
           </div>

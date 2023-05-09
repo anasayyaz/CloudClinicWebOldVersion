@@ -212,7 +212,7 @@ export default class LabTestItems extends React.Component {
         <div style={{ marginTop: "0px", marginBottom: "20px", textAlign: "right" }}>
           <NavLink
              className="col-md-2 px-1 w-100 border-0 shadow btn btn-md cc-btn"
-            to={`/AddLabTesItem`} > {"Add Lab Test"}
+            to={`/AddLabTestItem`} > {"Add Lab Test"}
               </NavLink>
         </div>
         <PaginationLabTestItem

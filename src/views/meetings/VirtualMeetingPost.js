@@ -44,11 +44,12 @@ import ConsultantDiagnosisData from "../Components/ConsultantDiagnosisData";
 import EditIntakeHistory from "../Components/EditIntakeHistory";
 import { QrCode } from "@mui/icons-material";
 import LabTestData from "../Components/LabTestData";
-let domainName = localStorage.getItem("domain");
+let domain = localStorage.getItem("domain");
 let image = localStorage.getItem("image");
 let role = localStorage.getItem("role");
 let name = JSON.parse(localStorage.getItem("user"));
 let link = `https://cloudclinicdevapi.azurewebsites.net/images/${image}`;
+let domainName = localStorage.getItem("domainName");
 // import { createSpeechlySpeechRecognition } from '@speechly/speech-recognition-polyfill';
 // import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
@@ -181,7 +182,7 @@ const VirtualMeetingPost = (props) => {
   }
   const openPrescription = () => {
     // alert(domainName)
-    if (domainName == "hanif") {
+    if (domain == "hanif" || domain == "cdc" || domain == "clinic") {
       setIsOpenPrescriptionNew(true);
     }
     else {
@@ -320,8 +321,8 @@ const VirtualMeetingPost = (props) => {
     setIsOpenPPrintNew(true);
     setP(JSON.parse(localStorage.getItem("PrescriptionPrint")));
     setTimeout(() => {
-      // window.print();
-      // setIsOpenPPrintNew(false);
+      window.print();
+      setIsOpenPPrintNew(false);
       // handlePrint();
     }, 1000);
   }
@@ -428,6 +429,8 @@ const VirtualMeetingPost = (props) => {
     setIsOpenLabTest(false)
     setIsOpenConsultation(false);
     setIsOpenDate(false);
+    setIsOpenPrescription(false);
+    setIsOpenPrescriptionNew(false);
   };
   function getUploadedFiles() {
     console.log(data);
@@ -453,6 +456,7 @@ const VirtualMeetingPost = (props) => {
     setIsOpenAddIntakeHistory(false);
   }
   useEffect(() => {
+    // alert(domainName)
     setVisitID(qs.parse(props.location.search)?.VisitID);
     if (window.JitsiMeetExternalAPI) {
       startConference(qs.parse(props.location.search)?.VisitID);
@@ -2166,32 +2170,65 @@ const VirtualMeetingPost = (props) => {
         maxWidth="true"
       >
         <DialogContent>
-          <div style={{ width: "95vw" }}>
-            <div className="row py-3 mx-2 d-flex align-items-center">
-              <img
-                src={link}
-                alt="Cloud Clinic Logo"
-                style={{ height: "50px", width: "200px" }}
-              />
-              <div className="text-left pl-4">
-                <p
-                  className="pb-1 mb-1 h2 font-weight-bold"
-                  style={{
-                    color: "rgb(39, 122, 210)",
-                    borderBottom: "2px solid rgb(39, 122, 210)",
-                    paddingRight: "20px",
-                  }}
-                >
-                  Dr. {consultantName}
-                </p>
-                <span className="text-dark">
-                  M.S. (Ayurveda), P.H.D. (Ayurveda)
-                </span>
-                <br />
-                <span className="text-dark">Medical Officer</span>
-                <br />
-                <span className="text-dark">Dept. of Oral Medicine</span>
-              </div>
+          {/* <>
+          <div className="row align-items-center justify-content-center">
+            <div className="col-md-8"></div>
+            <div className="col-md-4" style={{backgroundColor:"#0b7adb",borderRadius: "2rem", textAlign: 'center'}}><h1  className="mt-0 font-weight-bold py-1 ">Consultant Clinic</h1></div>
+            
+            </div></> */}
+          <div style={{
+            width: "95vw", marginLeft: "0px",
+            marginRight: "0px",
+            marginTop: "0px",
+            marginbottom: "0px",
+            size: "auto"
+          }}>
+
+            <div className="row py-1 mx-2 d-flex align-items-center">
+
+              <div className="col-md-8"> <div className="row py-3 mx-2  align-items-center">
+
+                <img
+                  src={link}
+                  alt="Cloud Clinic Logo"
+                  style={{ height: "100px" }}
+                />
+
+                {/* <div className="text-left pl-4">
+
+                  <h1 className="text-dark border-bottom font-weight-bold">
+                    {domainName}
+                  </h1>
+                  <div className="row ml-1 d-flex align-items-center">
+                    <img
+                      src="https://rohanileader.com/wp-content/uploads/2020/09/tracking-icon-png-29.png"
+                      alt="Cloud Clinic Logo"
+                      style={{ height: "30px" }}
+                    />
+                    <span className="text-dark ml-1 font-weight-bold">
+                      Pak Media Foundation Plaza, G-8 Markaz, Islamabad  <br /> 0323/0311-5159616, 051-2507919-5871361-2254021
+                    </span>
+                  </div>
+                </div> */}
+
+              </div></div>
+              <div className="col-md-4">
+                <div className="text-center pl-4">
+                  <p
+                    className="pb-1 mb-1 h2 font-weight-bold"
+                    style={{
+                      color: "rgb(39, 122, 210)",
+                      paddingRight: "20px",
+                    }}
+                  >
+                    Dr. {consultantName}
+                  </p>
+                  <span className="text-dark">
+                    M.S. (Ayurveda), P.H.D. (Ayurveda)
+                  </span>
+
+                </div></div>
+
             </div>
             <div className="form-group px-3">
               <PrescriptionPrintNew P={P} pname={patientName} age={age} />
@@ -2202,12 +2239,14 @@ const VirtualMeetingPost = (props) => {
                 alt="Cloud Clinic Logo"
                 style={{ height: "60px" }}
               />
-              <div className="text-left pl-4">
-                <span className="text-dark">123-456-7890, 444-324-3241</span>
-                <br />
-                <span className="text-dark">
-                  Street Address Here, City Name
-                </span>
+              <div className="text-center pl-3">
+                {domain == "cdc" ?(<span className="text-dark  font-weight-bold">
+                  {domainName} (I-10 Markaz) , Islamabad  <br /> 0323/0311-5159616, 051-2507919-5871361-2254021
+                </span>) : (<span className="text-dark  font-weight-bold">
+                  {domainName} Near Asghar Mall Chowk Adjacent Bank Al-Falah، 797 Saidpur Rd, Block E Asghar Mall Scheme
+                </span>)}
+
+
               </div>
             </div>
           </div>
@@ -2228,7 +2267,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px", width: "200px" }}
+                style={{ height: "50px" }}
               />
               <div className="text-left pl-4">
                 <p
@@ -2285,7 +2324,7 @@ const VirtualMeetingPost = (props) => {
               <img
                 src={link}
                 alt="Cloud Clinic Logo"
-                style={{ height: "50px", width: "200px" }}
+                style={{ height: "50px" }}
               />
               <div className="text-left pl-4">
                 <p
