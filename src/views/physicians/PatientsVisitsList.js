@@ -9,6 +9,7 @@ import { Alert, AlertTitle, Pagination } from "@material-ui/lab";
 import { Snackbar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { store } from "../../store";
+import LabTestData from "../Components/LabTestData";
 import list, { put, post } from "../../_helper/api";
 import ModalCarousel from "../Components/ModalCarousel";
 import STable from "../Components/STable";
@@ -47,6 +48,7 @@ class PatientsVisitsList extends React.Component {
       cid: "",
       prescription: "",
       assessment: "",
+      notes:"",
       vid: "",
       age: "",
       number: "",
@@ -57,6 +59,8 @@ class PatientsVisitsList extends React.Component {
       visitstate: 0,
       visitId: null,
       showPrescription: false,
+      showLabTest: false,
+      showNotes: false,
       prescription: "",
       showInitialComplain: false,
       showIntakeHistory: false,
@@ -76,7 +80,7 @@ class PatientsVisitsList extends React.Component {
       manual1: "",
       manual2: "",
       mmHG1: "",
-      mmHG2: "", 
+      mmHG2: "",
       bpm: "",
       weight: "",
       height: "",
@@ -385,9 +389,21 @@ class PatientsVisitsList extends React.Component {
           name: "id",
           button: {
             show: true,
-            value: "Lab Test",
+            value: "Lab Testing",
             operation: (val) => {
-              this.getUploadedFiles(val);
+              this.getLabTests(val);
+            },
+          },
+        },
+        {
+          label: "ID",
+          hide: true,
+          name: "id",
+          button: {
+            show: true,
+            value: "Notes",
+            operation: (val) => {
+              this.getNotes(val);
             },
           },
         },
@@ -753,7 +769,6 @@ class PatientsVisitsList extends React.Component {
     });
     this.setState({ showInitialComplain: true });
   }
-  
 
   onSelectionChanged = () => {
     var selectedRows = this.gridApi.getSelectedRows();
@@ -768,11 +783,10 @@ class PatientsVisitsList extends React.Component {
     if (file) {
       let n = file.name.lastIndexOf(".");
       let filename = file.name.substring(n + 1);
-  
+
       console.log("filesssss", file);
       image = {
-        name: `${d.getTime() + "." + filename
-  }`,
+        name: `${d.getTime() + "." + filename}`,
         file,
         url: URL.createObjectURL(file),
       };
@@ -801,6 +815,16 @@ class PatientsVisitsList extends React.Component {
       this.setState({ modalPatientFileUpload: false });
     });
   };
+  getNotes(id) {
+    list(`visit/getVisit/${id}`).then((response) => {
+     this.setState({notes: response.data[0].notes})
+     this.setState({ showNotes: true, vid: id });
+    });
+    
+  }
+  getLabTests(id) {
+    this.setState({ showLabTest: true, vid: id });
+  }
   getUploadedFiles(id) {
     list(`LabTest/visitsLabtests/${id}`)
       .then((response) => {
@@ -811,7 +835,6 @@ class PatientsVisitsList extends React.Component {
       });
   }
   handleClose() {
-  
     let { alert } = this.state;
     alert.open = false;
     this.setState({ alert });
@@ -844,11 +867,55 @@ class PatientsVisitsList extends React.Component {
       initialComplain,
       showInitialComplain,
       showVitalSigns,
+      showLabTest,
+      showNotes,
     } = this.state;
-   
+
     return (
       <div className="tableWrapper">
         <ToastContainer />
+        <PopUp
+          $class={this}
+          buttons={[]}
+          show={showNotes}
+          width="500px"
+          title="Notes"
+          name="showNotes"
+          content={
+            <React.Fragment>
+              <textarea
+                className="form-control border-0"
+                // rows={this.assessment}
+                name="notes"
+                value={this.state.notes}
+              />
+            </React.Fragment>
+          }
+        />
+        <PopUp
+          $class={this}
+          buttons={[]}
+          show={showLabTest}
+          width="1000px"
+          title="Lab Test"
+          name="showLabTest"
+          content={
+            <React.Fragment>
+              {/* <VitalSigns
+                consultant={this.state.vid}
+                age={this.state.age}
+                showAge="true"
+              /> */}
+              <LabTestData
+                // cname={consultantName}
+                show={0}
+                visitID={this.state.vid}
+                // patientID={patientNationalID}
+                // consultantID={consultantNationalID}
+              />
+            </React.Fragment>
+          }
+        />
         <PopUp
           $class={this}
           buttons={[]}
@@ -859,7 +926,7 @@ class PatientsVisitsList extends React.Component {
           content={
             <React.Fragment>
               <VitalSigns
-                consultant={this.state.vid}
+                visitID={this.state.vid}
                 age={this.state.age}
                 showAge="true"
               />
@@ -1955,12 +2022,13 @@ class PatientsVisitsList extends React.Component {
                     </div>
                   </div>
                   <div className="form-group px-3">
-                    {/* <textarea
+                    <textarea
                       className="form-control border-0"
-                      rows={5}
+                      // rows={this.assessment}
                       name="initialComplain"
                       value={this.state.assessment}
-                    /> */}
+                    />
+                    <hr></hr>
                     <DiagnosisData
                       cname={this.state.cname}
                       patientID={this.props.match.params.id}
@@ -2023,42 +2091,42 @@ class PatientsVisitsList extends React.Component {
           name="viewFileUploadModal"
           content={<ModalCarousel images={this.state.images} />}
         />
-          <div className="tableWrapper">
-        <Snackbar
-          open={alert.open}
-                           autoHideDuration={2000}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          onClose={() => {
-            this.handleClose();
-          }}
-        >
-          <Alert
+        <div className="tableWrapper">
+          <Snackbar
+            open={alert.open}
+            autoHideDuration={2000}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             onClose={() => {
               this.handleClose();
             }}
-            severity={alert.severity}
           >
-            <AlertTitle>{alert.title}</AlertTitle>
-            <strong>{alert.message}</strong>
-          </Alert>
-        </Snackbar>
-        <div>
-          <div className="tableWrapper">
-            <PaginationTable
-              title="Visits"
-              columns={columns}
-              data={rowData}
-              options={this.options}
-              onSelectionChanged={this.onSelectionChanged}
-              rowSelection={this.rowSelection}
-              $class={this}
-              search={true}
-              handleSearchClick={this.handleSearchClick}
-              requestData={requestData}
-            />
+            <Alert
+              onClose={() => {
+                this.handleClose();
+              }}
+              severity={alert.severity}
+            >
+              <AlertTitle>{alert.title}</AlertTitle>
+              <strong>{alert.message}</strong>
+            </Alert>
+          </Snackbar>
+          <div>
+            <div className="tableWrapper">
+              <PaginationTable
+                title="Visits"
+                columns={columns}
+                data={rowData}
+                options={this.options}
+                onSelectionChanged={this.onSelectionChanged}
+                rowSelection={this.rowSelection}
+                $class={this}
+                search={true}
+                handleSearchClick={this.handleSearchClick}
+                requestData={requestData}
+              />
+            </div>
           </div>
         </div>
-      </div>
       </div>
     );
   }

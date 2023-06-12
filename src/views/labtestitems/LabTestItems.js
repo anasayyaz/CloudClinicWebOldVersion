@@ -93,12 +93,12 @@ export default class LabTestItems extends React.Component {
             sortable: true,
             filter: true,
           },
-        // {
-        //   label: this.context.translate("ID"),
-        //   hide:true,
-        //   name: "labTestTypeID",
-        //   button:{show:true, value:'Edit', operation: (val) => (this.props.history.push(`/EditMedicine/${val}`)), icon:Edit},
-        // },
+        {
+          label: this.context.translate("ID"),
+          hide:true,
+          name: "labTestTypeID",
+          button:{show:true, value:'Edit', operation: (val) => (this.props.history.push(`/EditLabTestItem/${val}`)), icon:Edit},
+        },
         
       ],
       rowSelection: "single",

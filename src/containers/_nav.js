@@ -292,12 +292,6 @@ var _default_Receptionist = (translate) => [
 
       {
         _tag: "CSidebarNavItem",
-        name: "List",
-        to: "/PhysicianHome",
-      },
-
-      {
-        _tag: "CSidebarNavItem",
         name: "Cancelled",
         to: "/cancelList",
       },

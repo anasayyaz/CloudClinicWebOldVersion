@@ -182,13 +182,12 @@ const VirtualMeetingPost = (props) => {
   }
   const openPrescription = () => {
     // alert(domainName)
-    if (domain == "hanif" || domain == "cdc" || domain == "clinic") {
+    if (1) {
       setIsOpenPrescriptionNew(true);
-    }
-    else {
+    } else {
       setIsOpenPrescription(true);
     }
-  }
+  };
   const handleEnd = () => {
     if (data.isfollowup) {
       //  alert("follow up");
@@ -330,9 +329,9 @@ const VirtualMeetingPost = (props) => {
     list(`VisitLabTest/GetByVisit/${visitID}`)
       .then((response) => {
         console.log(response);
-        console.log(response.data)
+        console.log(response.data);
         if (response == "Record not found in system") {
-          setLabTestData(null)
+          setLabTestData(null);
         } else {
           setLabTestData(response.data);
           setIsOpenLPrint(true);
@@ -343,15 +342,10 @@ const VirtualMeetingPost = (props) => {
         // console.log(reportData.prescriptions)
         // console.log(reportData.vitalsigns)
         // console.log(reportData.visitLabTests)
-
-
-
-
       })
       .catch((error) => {
         // toast.error("No Record Found");
       });
-
   }
   const printR = () => {
     //  toast.info("Please wait we are genrating report");
@@ -365,18 +359,14 @@ const VirtualMeetingPost = (props) => {
         // console.log(reportData.vitalsigns)
         // console.log(reportData.visitLabTests)
 
-
         setIsOpenRPrint(true);
         window.print();
         setIsOpenRPrint(false);
-
       })
       .catch((error) => {
         // toast.error("No Record Found");
       });
-
-
-  }
+  };
   function reset() {
     list(`visit/getVisit/${qs.parse(props.location.search)?.Consultant}`).then(
       (response) => {
@@ -426,7 +416,7 @@ const VirtualMeetingPost = (props) => {
 
       // setIsOpenDate(false);
     });
-    setIsOpenLabTest(false)
+    setIsOpenLabTest(false);
     setIsOpenConsultation(false);
     setIsOpenDate(false);
     setIsOpenPrescription(false);
@@ -675,8 +665,9 @@ const VirtualMeetingPost = (props) => {
                     </div>
                   </div>
                   <div
-                    className={`w-100 ecg_fulscreen_jitsi ${ecgFullscreen && "active"
-                      }`}
+                    className={`w-100 ecg_fulscreen_jitsi ${
+                      ecgFullscreen && "active"
+                    }`}
                   >
                     <div className="row m-0" style={{ width: "100%" }}>
                       {/* <JitsiMeeting id="jitsi-container" style={jitsiContainerStyle} roomName={"hello"} /> */}
@@ -768,7 +759,7 @@ const VirtualMeetingPost = (props) => {
                     <button
                       class="w-100 border-0 shadow btn btn-primary cc-btn cc-page-title"
                       onClick={() => {
-                        openPrescription()
+                        openPrescription();
                       }}
                     >
                       {translate("PRESCRIPTION")}
@@ -1424,6 +1415,7 @@ const VirtualMeetingPost = (props) => {
         <div style={{ width: "40vw" }}>
           <DialogContent>
             <LabTestData
+              show={1}
               cname={consultantName}
               visitID={visitID}
               patientID={patientNationalID}
@@ -1521,8 +1513,6 @@ const VirtualMeetingPost = (props) => {
         </DialogTitle>
         <div style={{ width: "40vw" }}>
           <DialogContent>
-
-
             <NewPrescriptionData
               cname={consultantName}
               visitID={visitID}
@@ -1970,7 +1960,7 @@ const VirtualMeetingPost = (props) => {
                       className="form-control"
                       name="followupdatetime"
                       defaultValue={data.followupdatetime}
-                    // value={new Date().toLocaleDateString("en-CA")}
+                      // value={new Date().toLocaleDateString("en-CA")}
                     />
                   </div>
                 </div>
@@ -2141,7 +2131,11 @@ const VirtualMeetingPost = (props) => {
               </div>
             </div>
             <div className="form-group px-3">
-              <LabTestPrint labTestData={labTestData} pname={patientName} age={age} />
+              <LabTestPrint
+                labTestData={labTestData}
+                pname={patientName}
+                age={age}
+              />
             </div>
             <div className="row pb-3 ml-5 d-flex align-items-center">
               <img
@@ -2176,25 +2170,27 @@ const VirtualMeetingPost = (props) => {
             <div className="col-md-4" style={{backgroundColor:"#0b7adb",borderRadius: "2rem", textAlign: 'center'}}><h1  className="mt-0 font-weight-bold py-1 ">Consultant Clinic</h1></div>
             
             </div></> */}
-          <div style={{
-            width: "95vw", marginLeft: "0px",
-            marginRight: "0px",
-            marginTop: "0px",
-            marginbottom: "0px",
-            size: "auto"
-          }}>
-
+          <div
+            style={{
+              width: "95vw",
+              marginLeft: "0px",
+              marginRight: "0px",
+              marginTop: "0px",
+              marginbottom: "0px",
+              size: "auto",
+            }}
+          >
             <div className="row py-1 mx-2 d-flex align-items-center">
+              <div className="col-md-8">
+                {" "}
+                <div className="row py-3 mx-2  align-items-center">
+                  <img
+                    src={link}
+                    alt="Cloud Clinic Logo"
+                    style={{ height: "100px" }}
+                  />
 
-              <div className="col-md-8"> <div className="row py-3 mx-2  align-items-center">
-
-                <img
-                  src={link}
-                  alt="Cloud Clinic Logo"
-                  style={{ height: "100px" }}
-                />
-
-                {/* <div className="text-left pl-4">
+                  {/* <div className="text-left pl-4">
 
                   <h1 className="text-dark border-bottom font-weight-bold">
                     {domainName}
@@ -2210,8 +2206,8 @@ const VirtualMeetingPost = (props) => {
                     </span>
                   </div>
                 </div> */}
-
-              </div></div>
+                </div>
+              </div>
               <div className="col-md-4">
                 <div className="text-center pl-4">
                   <p
@@ -2226,9 +2222,8 @@ const VirtualMeetingPost = (props) => {
                   <span className="text-dark">
                     M.S. (Ayurveda), P.H.D. (Ayurveda)
                   </span>
-
-                </div></div>
-
+                </div>
+              </div>
             </div>
             <div className="form-group px-3">
               <PrescriptionPrintNew P={P} pname={patientName} age={age} />
@@ -2240,13 +2235,17 @@ const VirtualMeetingPost = (props) => {
                 style={{ height: "60px" }}
               />
               <div className="text-center pl-3">
-                {domain == "cdc" ?(<span className="text-dark  font-weight-bold">
-                  {domainName} (I-10 Markaz) , Islamabad  <br /> 0323/0311-5159616, 051-2507919-5871361-2254021
-                </span>) : (<span className="text-dark  font-weight-bold">
-                  {domainName} Near Asghar Mall Chowk Adjacent Bank Al-Falah، 797 Saidpur Rd, Block E Asghar Mall Scheme
-                </span>)}
-
-
+                {domain == "cdc" ? (
+                  <span className="text-dark  font-weight-bold">
+                    {domainName} (I-10 Markaz) , Islamabad <br />{" "}
+                    0323/0311-5159616, 051-2507919-5871361-2254021
+                  </span>
+                ) : (
+                  <span className="text-dark  font-weight-bold">
+                    {domainName} Near Asghar Mall Chowk Adjacent Bank Al-Falah،
+                    797 Saidpur Rd, Block E Asghar Mall Scheme
+                  </span>
+                )}
               </div>
             </div>
           </div>
@@ -2347,7 +2346,13 @@ const VirtualMeetingPost = (props) => {
               </div>
             </div>
             <div className="form-group px-3">
-              <ReportPrint P={P} pname={patientName} age={age} reportData={reportData} VitalSignView={VitalSignView} />
+              <ReportPrint
+                P={P}
+                pname={patientName}
+                age={age}
+                reportData={reportData}
+                VitalSignView={VitalSignView}
+              />
             </div>
             <div className="row pb-3 ml-5 d-flex align-items-center">
               <img

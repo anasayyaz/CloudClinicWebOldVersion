@@ -157,6 +157,7 @@ const LabTestData = (props) => {
   };
 
   const getAllDiagnostic = async () => {
+    // alert(props.visitID);
     const getAll = await fetch(
       `https://cloudclinicdevapi.azurewebsites.net/api/VisitLabTest/GetByVisit/${props.visitID}`,
       {
@@ -172,7 +173,7 @@ const LabTestData = (props) => {
 
     if (response == "Record not found in system") {
       SetDiagnostic(null);
-      setDiagnosticCount(0)
+      setDiagnosticCount(0);
     } else {
       SetDiagnostic(response);
       setDiagnosticCount(countDeletedDiagnostic(response));
@@ -302,8 +303,9 @@ const LabTestData = (props) => {
                       </p>
                       {/* {!data.isDeleted && ( */}
                       <li
-                        className={`${data?.labTestTypeID ? "d-block" : "d-none"
-                          } align-items-center justify-content-between py-2 border shadow-sm px-2 py-2 w-100`}
+                        className={`${
+                          data?.labTestTypeID ? "d-block" : "d-none"
+                        } align-items-center justify-content-between py-2 border shadow-sm px-2 py-2 w-100`}
                         key={index}
                       >
                         <div className="row">
@@ -381,8 +383,9 @@ const LabTestData = (props) => {
                     <React.Fragment key={index}>
                       {data.isDeleted && (
                         <li
-                          className={`${data?.name ? "d-block" : "d-none"
-                            } align-items-center justify-content-between py-2 border shadow-sm px-2 py-2 w-100`}
+                          className={`${
+                            data?.name ? "d-block" : "d-none"
+                          } align-items-center justify-content-between py-2 border shadow-sm px-2 py-2 w-100`}
                           key={index}
                         >
                           <div className="row">
@@ -477,14 +480,17 @@ const LabTestData = (props) => {
               ) : (
                 <li className="d-flex align-items-center py-2 border-bottom w-100">
                   <div className="pr-1 pl-0 font-weight-bold col-md-10">
-                    <input
-                      list="LabTestTypeID"
-                      id="LabTestTypeID-input"
-                      className="form-control"
-                      placeholder={"Select Lab Test"}
-                      ref={icdRef}
-                      onChange={localDiagnosticHandler}
-                    />
+                    {show ? (
+                      <input
+                        list="LabTestTypeID"
+                        id="LabTestTypeID-input"
+                        className="form-control"
+                        placeholder={"Select Lab Test"}
+                        ref={icdRef}
+                        onChange={localDiagnosticHandler}
+                      />
+                    ) : null}
+
                     <datalist
                       id="LabTestTypeID"
                       className="cutom-select px-2 py-5"
@@ -507,21 +513,22 @@ const LabTestData = (props) => {
                         ))}
                     </datalist>
                   </div>
-
-                  <div className="pl-1 pr-0 col-md-2">
-                    <button
-                      className="border-0 btn btn-sm btn-danger w-100 cc-btn py-2 border-0"
-                      onClick={addToLocalFinalDiagnosticHandler}
-                    >
-                      {translate("ADD")}
-                    </button>
-                    {/* <button
+                  {show ? (
+                    <div className="pl-1 pr-0 col-md-2">
+                      <button
+                        className="border-0 btn btn-sm btn-danger w-100 cc-btn py-2 border-0"
+                        onClick={addToLocalFinalDiagnosticHandler}
+                      >
+                        {translate("ADD")}
+                      </button>
+                      {/* <button
                 className="border-0 btn btn-sm btn-danger cc-btn py-2 border-0"
                 // onClick={() => createDiagnostic()}
               >
                 Delete
               </button> */}
-                  </div>
+                    </div>
+                  ) : null}
                 </li>
               )}
             </>

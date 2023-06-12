@@ -12,7 +12,7 @@ export default class AddWard extends React.Component {
     super(props);
     this.validate = {
       Speciality: true,
-      ColorCode: true,
+      colorHexaCode: true,
     };
     this.alert = {
       open: false,
@@ -22,7 +22,7 @@ export default class AddWard extends React.Component {
     };
     this.state = {
       Speciality: "",
-      ColorCode: "",
+      color: "",
       validate: this.validate,
       alert: this.alert,    
       createdOn: new Date(),
@@ -37,19 +37,19 @@ export default class AddWard extends React.Component {
   }
 
   onCreateWard = () => {
-    post("ward", this.state)
+    post("colorcode", this.state)
       .then((response) => {
         this.setState({
           alert: {
             open: true,
             severity: "success",
-            message: "Ward successfully added",
+            message: "Speciality successfully added",
             title: "Success",
           },
         });
-        setTimeout(() => {
-          this.props.history.push("/wards");
-        }, 1000);
+        // setTimeout(() => {
+        //   this.props.history.push("/wards");
+        // }, 1000);
       })
       .catch((error) => {
         this.setState({
@@ -94,13 +94,13 @@ export default class AddWard extends React.Component {
             <h4>Add Speciality</h4>
           </div>
           <div className="col-md-2 px-1">
-            <NavLink
+            {/* <NavLink
               className="w-100 border-0 shadow btn btn-md cc-btn"
               to={`wards`}
             >
               {" "}
               {translate("VIEW_WARDS")}
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
         <div className="form-horizontal">
@@ -123,10 +123,10 @@ export default class AddWard extends React.Component {
                 <div className="input-container">
                   <TextField
                     fullWidth
-                    id="ColorCode"
+                    id="colorHexaCode"
                     type="text"
                     onChange={this.handleChange}
-                    label={"COlor Code"}
+                    label={"Color Code"}
                   />
                 </div>
               </div>

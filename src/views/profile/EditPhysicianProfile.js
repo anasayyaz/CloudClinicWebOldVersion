@@ -12,11 +12,11 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 // import AddPhysicianPackage from "./AddPhysicianPackage";
 // import PhysicianPackgaeList from "./PhysicianPackageList";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import MuiPhoneNumber from "material-ui-phone-number";
 import TranslationContext from "../../context/translation";
-let userid=JSON.parse(localStorage.getItem("user"));
+let userid = JSON.parse(localStorage.getItem("user"));
 var roles = localStorage.getItem("roles");
 let nid;
 export default class EditPhysicianProfile extends React.Component {
@@ -37,12 +37,12 @@ export default class EditPhysicianProfile extends React.Component {
     };
     this.SchedulerService = new SchedulerService();
     this.state = {
-      identificationNo:'',
-      EmployeeCode:'',
-      Role:false,
+      identificationNo: "",
+      EmployeeCode: "",
+      Role: false,
       nationalID: "",
-      color:[],
-      choosenColor:'',
+      color: [],
+      choosenColor: "",
       healthCareLicenseID: "",
       titles: "",
       name: "",
@@ -58,14 +58,14 @@ export default class EditPhysicianProfile extends React.Component {
       alert: this.alert,
       CalendarID: "",
       Email: "",
-      userID:'',
+      userID: "",
       title: "",
       degree: "",
       calendars: [],
-      colorCode:'',
+      colorCode: "",
       packageModal: true,
-      calendarID:'',
-      "isActive":true
+      calendarID: "",
+      isActive: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -73,9 +73,8 @@ export default class EditPhysicianProfile extends React.Component {
     this.handleReset = this.handleReset.bind(this);
   }
   handleChange(event) {
-
     let { validate } = this.state;
-    if ( !validate.name || !validate.CalendarID) {
+    if (!validate.name || !validate.CalendarID) {
       validate["name"] = !this.state.name ? false : true;
       validate["CalendarID"] = !this.state.CalendarID ? false : true;
       this.setState({ validate });
@@ -91,152 +90,132 @@ export default class EditPhysicianProfile extends React.Component {
     this.setState({ [event.target.id]: event.target.value });
   }
   changeColor(e) {
-        this.setState({
-            color: e.target.value
-        })
-    }
-  handleSubmit(event) 
-  {
+    this.setState({
+      color: e.target.value,
+    });
+  }
+  handleSubmit(event) {
     let str = this.state.choosenColor;
     str = str.slice(1);
-    this.setState({colorCode:str})
- this.setState({phone:this.state.phone.replace('-','')});
- 
- setTimeout(() => {
+    this.setState({ colorCode: str });
+    this.setState({ phone: this.state.phone.replace("-", "") });
 
-
-    let { validate } = this.state;
-    if (
-    
-      !this.state.name ||
-    
-      !this.state.email ||
-      !functions.validateEmail(this.state.email)
-    ) {
-    
-      validate["name"] = !this.state.name ? false : true;
-      validate["email"] = !this.state.email
-        ? false
-        : functions.validateEmail(this.state.email)
-        ? true
-        : false;
-      this.setState({ validate });
-    } else {
-
-      put(`physician/${this.state.nationalID}`, this.state )
-        .then((response) => {
-          put(`accounts/user/${this.state.userID}`, {
-            firstName: this.state.name,
-            phoneNumber: this.state.phone,
-            address: this.state.address,
-            titles: this.state.titles,
-            lastName: this.state.lastName,
-            EmployeeCode:this.state.EmployeeCode,
-            colorCode:str,
-            email:this.state.email
+    setTimeout(() => {
+      let { validate } = this.state;
+      if (
+        !this.state.name ||
+        !this.state.email ||
+        !functions.validateEmail(this.state.email)
+      ) {
+        validate["name"] = !this.state.name ? false : true;
+        validate["email"] = !this.state.email
+          ? false
+          : functions.validateEmail(this.state.email)
+          ? true
+          : false;
+        this.setState({ validate });
+      } else {
+        put(`physician/${this.state.nationalID}`, this.state)
+          .then((response) => {
+            put(`accounts/user/${this.state.userID}`, {
+              firstName: this.state.name,
+              phoneNumber: this.state.phone,
+              address: this.state.address,
+              titles: this.state.titles,
+              lastName: this.state.lastName,
+              EmployeeCode: this.state.EmployeeCode,
+              colorCode: str,
+              email: this.state.email,
+            });
+            this.setState({
+              alert: {
+                open: true,
+                severity: "success",
+                message: "Physician successfully updated",
+                title: "Success",
+              },
+            });
+          })
+          .catch((error) => {
+            this.setState({
+              alert: {
+                open: true,
+                severity: "error",
+                message: "Something went wrong",
+                title: "Error",
+              },
+            });
           });
-          this.setState({
-            alert: {
-              open: true,
-              severity: "success",
-              message: "Physician successfully updated",
-              title: "Success",
-            },
-          });
-        })
-        .catch((error) => {
-          this.setState({
-            alert: {
-              open: true,
-              severity: "error",
-              message: "Something went wrong",
-              title: "Error",
-            },
-          });
-        });
-    }
-  }, 2000);
+      }
+    }, 2000);
   }
 
   handleClose() {
     this.setState({ alert: { ...this.state.alert, open: false } });
   }
   componentDidMount() {
-
-
     list(`physician/getPhysician/${userid}`).then((response) => {
+      nid = response.data[0].nationalID;
+      list(`colorcode`).then((response) => {
+        this.setState({ color: response.data });
 
-
-     nid=response.data[0].nationalID;
-     list(
-      `colorcode`
-    ).then((response) => {
-      this.setState(({color:response.data}))
-
-     console.log(response)
-    })
-    if (roles == "Admin") {
-      this.setState({Role:true});
-    }
-
-    this.setState({Role:'Physician'});
-    list(`physician/${nid}`).then((response) => {
-
-      this.setState({
-        nationalID: response.data.nationalID,
-        identificationNo:response.data.identificationNo,
-        healthCareLicenseID: response.data.healthCareLicenseID,
-        name: response.data.name,
-        lastName: response.data.lastName,
-        titles: response.data.titles,
-        address: response.data.address,
-        EmployeeCode:response.data.employeeCode,
-        healthCareLicenseValidDate: new Date(
-          response.data.healthCareLicenseValidDate
-        ).toLocaleDateString("en-US"),
-        dob: new Date(response.data.dob).toLocaleDateString("en-US"),
-        gender: response.data.gender,
-         phone: response.data.phone,
-        speciality: response.data.speciality,
-        discriminator: response.data.discriminator,
-        IsDeleted: false,
-        email: response.data.email,
-        title: response.data.title,
-        degree: response.data.degree,
-        calendarID: response.data.calendarID,
-        userID: response.data.userID,
-        choosenColor:response.data.colorCode,
-
+        console.log(response);
       });
-      //  alert(this.state.choosenColor)
-      let str = "#" + this.state.choosenColor;
-      
-      //  alert(str)
-      this.setState({choosenColor:str})
-      //  alert(this.state.choosenColor)
+      if (roles == "Admin") {
+        this.setState({ Role: true });
+      }
 
-      
-   
+      this.setState({ Role: "Physician" });
+      list(`physician/${nid}`).then((response) => {
+        this.setState({
+          nationalID: response.data.nationalID,
+          identificationNo: response.data.identificationNo,
+          healthCareLicenseID: response.data.healthCareLicenseID,
+          name: response.data.name,
+          lastName: response.data.lastName,
+          titles: response.data.titles,
+          address: response.data.address,
+          EmployeeCode: response.data.employeeCode,
+          healthCareLicenseValidDate: new Date(
+            response.data.healthCareLicenseValidDate
+          ).toLocaleDateString("en-US"),
+          dob: new Date(response.data.dob).toLocaleDateString("en-US"),
+          gender: response.data.gender,
+          phone: response.data.phone,
+          speciality: response.data.speciality,
+          discriminator: response.data.discriminator,
+          IsDeleted: false,
+          email: response.data.email,
+          title: response.data.title,
+          degree: response.data.degree,
+          calendarID: response.data.calendarID,
+          userID: response.data.userID,
+          choosenColor: response.data.colorCode,
+        });
+        //  alert(this.state.choosenColor)
+        let str = "#" + this.state.choosenColor;
+
+        //  alert(str)
+        this.setState({ choosenColor: str });
+        //  alert(this.state.choosenColor)
+      });
     });
-    })
 
-   
     let that = this;
-    
   }
 
-  handleReset()
-  {
-    toast.info("New password sent to user "+this.state.name+" on email: "+this.state.email);
-    put(`accounts/resentPassword/${this.state.userID}`, {
-    
-    }).then((response) => {
-    
-    });
-    
+  handleReset() {
+    toast.info(
+      "New password sent to user " +
+        this.state.name +
+        " on email: " +
+        this.state.email
+    );
+    put(`accounts/resentPassword/${this.state.userID}`, {}).then(
+      (response) => {}
+    );
   }
   onDeletePhsician = () => {
-   
     del(`physician/${nid}`).then((response) => {
       this.props.history.push("/physicians/Physicians");
     });
@@ -245,7 +224,7 @@ export default class EditPhysicianProfile extends React.Component {
     });
   };
   render() {
-    let { alert, calendars,color } = this.state;
+    let { alert, calendars, color } = this.state;
     const { translate } = this.context;
     const openPackageModal = () => {
       console.log(this.state.packageModal);
@@ -263,10 +242,10 @@ export default class EditPhysicianProfile extends React.Component {
 
     return (
       <>
-            <ToastContainer />
+        <ToastContainer />
         <Snackbar
           open={alert.open}
-           autoHideDuration={2000}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+          autoHideDuration={2000}
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           onClose={() => {
             this.handleClose();
@@ -287,7 +266,7 @@ export default class EditPhysicianProfile extends React.Component {
             <div className="row w-100 d-flex justify-content-between m-0">
               <div className="d-flex align-items-center">
                 <p className="m-0 cc-page-title text-uppercase pl-2">
-                {translate("ADD_NEW_PHYSICIAN")}
+                  {translate("ADD_NEW_PHYSICIAN")}
                 </p>
               </div>
 
@@ -305,7 +284,7 @@ export default class EditPhysicianProfile extends React.Component {
                     className="border-0 shadow btn btn-md cc-btn ml-2"
                     to={`/Physicians`}
                   >
-                  {translate("BACK_TO_PHYSICIANS_LIST")}
+                    {translate("BACK_TO_PHYSICIANS_LIST")}
                   </NavLink>
                 </div>
               </div>
@@ -317,7 +296,9 @@ export default class EditPhysicianProfile extends React.Component {
               id="collapsePackageForm"
             >
               <div class="col-sm-4 modal-header">
-                <h5 class="modal-title text-white">{translate("ADD_NEW_PACKAGE")}</h5>
+                <h5 class="modal-title text-white">
+                  {translate("ADD_NEW_PACKAGE")}
+                </h5>
                 <button
                   type="button"
                   class="close"
@@ -353,18 +334,18 @@ export default class EditPhysicianProfile extends React.Component {
                   </div>
                 </div>
                 <div className="col-md-4">
-                <div className="input-container">
-                  <TextField
-                    required
-                    fullWidth
-                    id="EmployeeCode"
-                    type="text"
-                    value={this.state.EmployeeCode}
-                    onChange={this.handleChange}
-                    label={translate("EMPLOYEE_ID")}
-                  />
+                  <div className="input-container">
+                    <TextField
+                      required
+                      fullWidth
+                      id="EmployeeCode"
+                      type="text"
+                      value={this.state.EmployeeCode}
+                      onChange={this.handleChange}
+                      label={translate("EMPLOYEE_ID")}
+                    />
+                  </div>
                 </div>
-              </div>
                 <div className="col-md-3">
                   <div className="input-container">
                     <TextField
@@ -421,7 +402,9 @@ export default class EditPhysicianProfile extends React.Component {
                           this.setState({ gender: e.target.value });
                         }}
                       >
-                        <MenuItem value="Female">{translate("FEMALE")}</MenuItem>
+                        <MenuItem value="Female">
+                          {translate("FEMALE")}
+                        </MenuItem>
                         <MenuItem value="Male">{translate("MALE")}</MenuItem>
                       </Select>
                     </FormControl>
@@ -430,19 +413,22 @@ export default class EditPhysicianProfile extends React.Component {
 
                 <div className="col-md-6">
                   <div className="input-container">
-                      <MuiPhoneNumber className="col-md-12"  onlyCountries={['gb','us','in','cn','pk']}  
-                      value={this.state.phone} 
-                      label={translate("MOBILE")} 
-                      defaultCountry={'pk'}  
-                      onChange={phone => this.setState({ phone })}/>,
-             
+                    <MuiPhoneNumber
+                      className="col-md-12"
+                      onlyCountries={["gb", "us", "in", "cn", "pk"]}
+                      value={this.state.phone}
+                      label={translate("MOBILE")}
+                      defaultCountry={"pk"}
+                      onChange={(phone) => this.setState({ phone })}
+                    />
+                    ,
                   </div>
                 </div>
 
                 <div className="col-md-3" style={{ marginTop: "30px" }}>
                   <div className="form-group">
                     <span style={{ fontSize: "16px", color: "grey" }}>
-                    {translate("DATE_OF_BIRTH")}
+                      {translate("DATE_OF_BIRTH")}
                     </span>
                   </div>
                 </div>
@@ -474,7 +460,7 @@ export default class EditPhysicianProfile extends React.Component {
                 <div className="col-md-3" style={{ marginTop: "30px" }}>
                   <div className="input-container">
                     <span style={{ fontSize: "16px", color: "grey" }}>
-                    {translate("HEALTH_CARE_LICENSE_VALIDITY_DATE")}:
+                      {translate("HEALTH_CARE_LICENSE_VALIDITY_DATE")}:
                     </span>
                   </div>
                 </div>
@@ -485,7 +471,9 @@ export default class EditPhysicianProfile extends React.Component {
                       value={this.state.healthCareLicenseValidDate}
                       onChange={this.handleChange}
                       id="healthCareLicenseValidDate"
-                      placeholder={translate("HEALTH_CARE_LICENSE_VALIDITY_DATE")}
+                      placeholder={translate(
+                        "HEALTH_CARE_LICENSE_VALIDITY_DATE"
+                      )}
                     />
                   </div>
                 </div>
@@ -539,7 +527,6 @@ export default class EditPhysicianProfile extends React.Component {
            </FormControl>
               </div>
                 </div> */}
-                
 
                 <div className="col-md-6">
                   <div className="input-container">
@@ -552,17 +539,35 @@ export default class EditPhysicianProfile extends React.Component {
                           this.setState({ speciality: e.target.value });
                         }}
                       >
-                        <MenuItem value="CARDIOLOGIST">CARDIOLOGIST</MenuItem>
-                        <MenuItem value="FAMILY PHYSICIAN"> PHYSICIAN</MenuItem>
-                        <MenuItem value="PEDIATRICIAN">PEDIATRICIAN</MenuItem>
-                        <MenuItem value="PSYCHIATRIST">PSYCHIATRIST</MenuItem>
-                        <MenuItem value="GYNECOLOGIST">GYNECOLOGIST</MenuItem>
-                        <MenuItem value="SURGEON">SURGEON</MenuItem>
-                        <MenuItem value="PATHOLOGIST">PATHOLOGIST</MenuItem>
-                        <MenuItem value="NEUROLOGIST">NEUROLOGIST</MenuItem>
-                        <MenuItem value="UROLOGIST">UROLOGIST</MenuItem>
-                        <MenuItem value="DERMATOLOGIST">DERMATOLOGIST</MenuItem>
-                        <MenuItem value="RADIOLOGIST">RADIOLOGIST</MenuItem>
+                        <MenuItem value="CARDIOLOGIST">Cardiologist</MenuItem>
+                        <MenuItem value="FAMILY PHYSICIAN">
+                          Family Physician
+                        </MenuItem>
+                        <MenuItem value="PEDIATRICIAN">Pediatrician</MenuItem>
+                        <MenuItem value="PSYCHIATRIST">Psychiatrist</MenuItem>
+                        <MenuItem value="GYNECOLOGIST">Gynecologist</MenuItem>
+                        <MenuItem value="SURGEON">Surgeon</MenuItem>
+                        <MenuItem value="PATHOLOGIST">Pathologist</MenuItem>
+                        <MenuItem value="NEUROLOGIST">Neurologist</MenuItem>
+                        <MenuItem value="UROLOGIST">Urologist</MenuItem>
+                        <MenuItem value="DERMATOLOGIST">Dermatologist</MenuItem>
+                        <MenuItem value="RADIOLOGIST">Radiologist</MenuItem>
+                        <MenuItem value="Neuro-surgeon">Neuro-surgeon</MenuItem>
+                        <MenuItem value="Orthopedic-surgeon">
+                          Orthopedic-surgeon
+                        </MenuItem>
+                        <MenuItem value="Peads-surgeon">Peads-surgeon</MenuItem>
+                        <MenuItem value="Pulmonologist">Pulmonologist</MenuItem>
+                        <MenuItem value="Cuncologist">Cuncologist</MenuItem>
+                        <MenuItem value="Geriatics">Geriatics</MenuItem>
+                        <MenuItem value="Nephro-surgeon">
+                          Nephro-surgeon
+                        </MenuItem>
+                        <MenuItem value="Orthodontist">Orthodontist</MenuItem>
+                        <MenuItem value="Dentist">Dentist</MenuItem>
+                        <MenuItem value="Gastroenterologist">
+                          Gastroenterologist
+                        </MenuItem>
                       </Select>
                     </FormControl>
                   </div>
@@ -595,20 +600,30 @@ export default class EditPhysicianProfile extends React.Component {
               </div>
 
               <div className="form-group  row px-2 mt-1 d-flex justify-content-end">
-              <label className="control-label col-md-5"></label>
-              {this.state.Role ? (
-   <div class="col-md-2 px-1">
-   <button onClick={this.handleReset} class="w-100 border-0 shadow btn btn-info cc-btn" >{translate("RESET_PASSWORD")}</button>
-   </div>
-                 ) : null}
-              <div class="col-md-2 px-1">
-<button  onClick={this.handleSubmit} class="w-100 border-0 shadow btn btn-info cc-btn" >{translate("UPDATE")}</button>
-</div>
+                <label className="control-label col-md-5"></label>
+                {this.state.Role ? (
+                  <div class="col-md-2 px-1">
+                    <button
+                      onClick={this.handleReset}
+                      class="w-100 border-0 shadow btn btn-info cc-btn"
+                    >
+                      {translate("RESET_PASSWORD")}
+                    </button>
+                  </div>
+                ) : null}
+                <div class="col-md-2 px-1">
+                  <button
+                    onClick={this.handleSubmit}
+                    class="w-100 border-0 shadow btn btn-info cc-btn"
+                  >
+                    {translate("UPDATE")}
+                  </button>
+                </div>
 
-{/* <div class="col-md-2 px-1">
+                {/* <div class="col-md-2 px-1">
 <button  onClick={this.onDeletePhsician} class="w-100 border-0 shadow btn-danger " >{translate("DELETE")}</button>
               </div> */}
-            </div>
+              </div>
             </div>
 
             {/* <PhysicianPackgaeList nationalID={this.state.nationalID} /> */}

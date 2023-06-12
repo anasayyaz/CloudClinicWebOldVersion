@@ -11,8 +11,7 @@ import Text from "../src/components/Text/Text";
 import Link from "../src/components/Link/Link";
 import TranslationContext from "./context/translation";
 import packageJson from "../package.json";
-import {lazy} from 'react';
-
+import { lazy } from "react";
 
 ///testing
 import { ToastContainer, toast } from "react-toastify";
@@ -59,31 +58,29 @@ function App(props) {
 
     toast.info(y);
   }
-  function caching  () {
-    let version = localStorage.getItem('version');
-    console.log(version)
-        if(version!=packageJson.version)
-        {
-            if('caches' in window){
-             caches.keys().then((names) => {
-            // Delete all the cache files
-            names.forEach(name => {
-                caches.delete(name);
-            })
+  function caching() {
+    let version = localStorage.getItem("version");
+    console.log(version);
+    if (version != packageJson.version) {
+      if ("caches" in window) {
+        caches.keys().then((names) => {
+          // Delete all the cache files
+          names.forEach((name) => {
+            caches.delete(name);
+          });
         });
-    
+
         // Makes sure the page reloads. Changes are only visible after you refresh.
         window.location.reload(true);
+      }
+
+      // localStorage.clear();
+      localStorage.setItem("version", packageJson.version);
     }
-    
-          // localStorage.clear();
-          localStorage.setItem('version',packageJson.version);
-        }
-    };
+  }
 
-
-    // const lazyWithRetry = (componentImport) =>
-    // ;
+  // const lazyWithRetry = (componentImport) =>
+  // ;
   onMessageListener()
     .then((payload) => {
       showUpload(payload.notification.body);
@@ -92,11 +89,11 @@ function App(props) {
     .catch((err) => console.log("failed: ", err));
 
   useEffect(() => {
-      let r=localStorage.getItem("userRole")
+    let r = localStorage.getItem("userRole");
     console.log(r);
-    window.location.assign(`/#/${r}Dashboard`);
-     caching();
-   
+    //  window.location.assign(`/#/${r}Dashboard`);
+    caching();
+
     onMessageListener()
       .then((payload) => {
         showUpload(payload.notification.body);

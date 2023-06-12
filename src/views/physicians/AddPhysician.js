@@ -542,19 +542,31 @@ export default class AddPhysician extends React.Component {
                         this.setState({ speciality: e.target.value });
                       }}
                     >
-                      <MenuItem value="CARDIOLOGIST">CARDIOLOGIST</MenuItem>
+                      <MenuItem value="CARDIOLOGIST">Cardiologist</MenuItem>
                       <MenuItem value="FAMILY PHYSICIAN">
-                        FAMILY PHYSICIAN
+                        Family Physician
                       </MenuItem>
-                      <MenuItem value="PEDIATRICIAN">PEDIATRICIAN</MenuItem>
-                      <MenuItem value="PSYCHIATRIST">PSYCHIATRIST</MenuItem>
-                      <MenuItem value="GYNECOLOGIST">GYNECOLOGIST</MenuItem>
-                      <MenuItem value="SURGEON">SURGEON</MenuItem>
-                      <MenuItem value="PATHOLOGIST">PATHOLOGIST</MenuItem>
-                      <MenuItem value="NEUROLOGIST">NEUROLOGIST</MenuItem>
-                      <MenuItem value="UROLOGIST">UROLOGIST</MenuItem>
-                      <MenuItem value="DERMATOLOGIST">DERMATOLOGIST</MenuItem>
-                      <MenuItem value="RADIOLOGIST">RADIOLOGIST</MenuItem>
+                      <MenuItem value="PEDIATRICIAN">Pediatrician</MenuItem>
+                      <MenuItem value="PSYCHIATRIST">Psychiatrist</MenuItem>
+                      <MenuItem value="GYNECOLOGIST">Gynecologist</MenuItem>
+                      <MenuItem value="SURGEON">Surgeon</MenuItem>
+                      <MenuItem value="PATHOLOGIST">Pathologist</MenuItem>
+                      <MenuItem value="NEUROLOGIST">Neurologist</MenuItem>
+                      <MenuItem value="UROLOGIST">Urologist</MenuItem>
+                      <MenuItem value="DERMATOLOGIST">Dermatologist</MenuItem>
+                      <MenuItem value="RADIOLOGIST">Radiologist</MenuItem>
+                      <MenuItem value="Neuro-surgeon">Neuro-surgeon</MenuItem>
+                      <MenuItem value="Orthopedic-surgeon">Orthopedic-surgeon</MenuItem>
+                      <MenuItem value="Peads-surgeon">Peads-surgeon</MenuItem>
+                      <MenuItem value="Pulmonologist">Pulmonologist</MenuItem>
+                      <MenuItem value="Cuncologist">Cuncologist</MenuItem>
+                      <MenuItem value="Geriatics">Geriatics</MenuItem>
+                      <MenuItem value="Nephro-surgeon">Nephro-surgeon</MenuItem>
+                      <MenuItem value="Orthodontist">Orthodontist</MenuItem>
+                      <MenuItem value="Dentist">Dentist</MenuItem>
+                      <MenuItem value="Gastroenterologist">Gastroenterologist</MenuItem>
+
+
                     </Select>
                   </FormControl>
                   {!this.state.validate.Speciality && (

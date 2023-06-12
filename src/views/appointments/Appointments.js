@@ -196,77 +196,7 @@ class Appointments extends React.Component {
     });
   };
 
-  // createEvent() {
-  //   let that = this;
-  //   function create() {
-  //     window.gapi.client
-  //       .init({
-  //         apiKey: parseJwt().GoogleCalendarApiKey,
-  //       })
-  //       .then(function () {
-  //         return window.gapi.client.request({
-  //           path: `https://www.googleapis.com/calendar/v3/calendars/${this.state.calendar}/events`,
-  //           body: {
-  //             summary: "Sample event",
-  //             location: "Winnipeg, Manitoba, Canada",
-  //             description: "Its a sample event.",
-  //             start: {
-  //               dateTime: "2020-08-10T09:00:00-07:00",
-  //               timeZone: "Asia/Karachi",
-  //             },
-  //           },
-  //           method: "POST",
-  //         });
-  //       })
-  //       .then(
-  //         (response) => {
-  //           let events = response.result.items;
-  //         },
-  //         function (reason) {
-  //           console.log(reason);
-  //         }
-  //       );
-  //   }
-  //   window.gapi.client
-  //     .init({
-  //       apiKey: parseJwt().GoogleCalendarApiKey,
-  //     })
-  //     .then(function () {
-  //       gapi.client.load("calendar", "v3", function () {
-  //         const request = gapi.client.calendar.events
-  //           .insert({
-  //             calendarId: this.state.calendar,
-  //             resource: {
-  //               summary: "Faran Test Event",
-  //               location: "Test Location",
-  //               description: "Test appointment",
-  //               start: {
-  //                 dateTime: "2020-08-09T09:00:00-07:00",
-  //                 timeZone: "America/Los_Angeles",
-  //               },
-  //               end: {
-  //                 dateTime: "2020-08-09T17:00:00-07:00",
-  //                 timeZone: "America/Los_Angeles",
-  //               },
-  //               reminders: {
-  //                 useDefault: false,
-  //               },
-  //             },
-  //           })
-  //           .then(
-  //             (response) => {
-  //               console.log("Response is :", response);
-  //             },
-  //             function (reason) {
-  //               console.log(reason);
-  //             }
-  //           );
-  //         request.execute(function (event) {
-  //           this.appendPre("Event created: " + event.htmlLink);
-  //         });
-  //       });
-  //     });
-  // }
+  
 
   render() {
     const { isOpen } = this.state;
@@ -280,8 +210,8 @@ class Appointments extends React.Component {
           physicianData={this.state.physicianData}
           nationalID={this.props.location.nationalID}
         />
-        <ButtonToolbar />
-        <div
+        {/* <ButtonToolbar /> */}
+        {/* <div
           className="modal fade"
           id="addSlotsModal"
           tabIndex="-1"
@@ -307,7 +237,7 @@ class Appointments extends React.Component {
               <div className="modal-body">
                 <AddAppointmentSlots />
               </div>
-              {/* <div className="modal-footer">
+              <div className="modal-footer">
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -318,10 +248,10 @@ class Appointments extends React.Component {
                 <button type="button" className="btn btn-primary">
                   Save changes
                 </button>
-              </div> */}
+              </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </React.Fragment>
     );
   }

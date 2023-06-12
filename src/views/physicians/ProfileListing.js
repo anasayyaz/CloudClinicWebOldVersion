@@ -8,11 +8,9 @@ const ProfileListing = (props) => {
   const history = useHistory();
 
   return (
-   
     <React.Fragment>
       <h4>{props.title}</h4>
       <div className="row ">
-     
         {props.data?.items?.map((data, index) => {
           return (
             <div className="col-md-3 pr-md-0">
@@ -25,9 +23,15 @@ const ProfileListing = (props) => {
                   src={`https://cloudclinicdevapi.azurewebsites.net/media/${domain}/Profile/${data.profileImage}`}
                 />
                 <Card.Body>
-                  <h4 className="">{data.titles}{" "}{data.name}</h4>
-                  <h5>{data.title ? <div>{data.title} </div> : "N/A"}</h5>
-                  <h5>{data.phone ? <div>{data.phone} </div> : "N/A"}</h5>
+                  <h4 className="">
+                    {data.titles} {data.name}
+                  </h4>
+                  <h5>{data.title ? <div>{data.title} </div> : " "}</h5>
+                  <h5>
+                    {data.speciality ? <div>{data.speciality} </div> : " "}
+                  </h5>
+                  <h5>{data.phone ? <div>{data.phone} </div> : " "}</h5>
+
                   <h6>
                     {data.address ? (
                       <div>
@@ -35,7 +39,7 @@ const ProfileListing = (props) => {
                         {data.address}{" "}
                       </div>
                     ) : (
-                      "N/A"
+                      " "
                     )}
                   </h6>
                   <button
