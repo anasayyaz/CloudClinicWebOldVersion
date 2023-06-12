@@ -23,7 +23,7 @@ import ModalCarousel from "../Components/ModalCarousel";
 import UploadImages from "../Components/UploadImages";
 import QRCode from "react-qr-code";
 import ReactDOM from "react-dom";
-
+import { useSelector } from "react-redux";
 import {
   TableBody,
   TableCell,
@@ -44,6 +44,7 @@ import ConsultantDiagnosisData from "../Components/ConsultantDiagnosisData";
 import EditIntakeHistory from "../Components/EditIntakeHistory";
 import { QrCode } from "@mui/icons-material";
 import LabTestData from "../Components/LabTestData";
+const { Configuration, OpenAIApi } = require("openai");
 let domain = localStorage.getItem("domain");
 let image = localStorage.getItem("image");
 let role = localStorage.getItem("role");
@@ -57,6 +58,9 @@ let domainName = localStorage.getItem("domainName");
 // const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(appId);
 // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 const VirtualMeetingPost = (props) => {
+  const configuration = new Configuration({
+    apiKey: "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",
+  });
   const { translate } = useContext(TranslationContext);
   const jitsiContainerStyle = {
     display: loading ? "none" : "block",
@@ -126,6 +130,8 @@ const VirtualMeetingPost = (props) => {
   const [vital, setVital] = React.useState(false);
   const [diagnosis, setDiagnosis] = React.useState(false);
   const [prescrtiption, setPrescrtiptration] = React.useState(false);
+  const authToken = useSelector((state) => state.userReducer.token);
+  const openai = new OpenAIApi(configuration);
   async function startConference(vid) {
     try {
       const domain = "meet.cloudclinic.ai";
@@ -347,6 +353,58 @@ const VirtualMeetingPost = (props) => {
         // toast.error("No Record Found");
       });
   }
+  const getAI = async () => {
+    const getAllM = await fetch(
+      `https://cloudclinicdevapi.azurewebsites.net/api/prescription/GetPrescriptionByVisit/${visitID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: null,
+      }
+    );
+    const responseMedicine = await getAllM.json();
+    let rmc = "";
+    for (let i = 0; i < responseMedicine.length; i++) {
+      console.log(responseMedicine[i].medicineName);
+      rmc = rmc + responseMedicine[i].medicineName + ",";
+    }
+  
+    const getAllD = await fetch(
+      `https://cloudclinicdevapi.azurewebsites.net/api/patientdiagnostic/patientDiagnosticsByVisit/${visitID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: null,
+      }
+    );
+    const responseDiagnosis = await getAllD.json();
+    let rdc = "";
+    for (let i = 0; i < responseDiagnosis.length; i++) {
+      console.log(responseDiagnosis[i].medicineName);
+      rdc = rdc + responseDiagnosis[i].medicineName + ",";
+    }
+
+    try {
+      console.log(responseDiagnosis);
+      const result = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: `get doctors note and assemsnet in few lines on this information diagnosis: ${rdc} and medicine: ${rmc}`,
+        temperature: 0.5,
+        max_tokens: 4000,
+      });
+      //console.log("response", result.data.choices[0].text);
+      alert(result.data.choices[0].text);
+    } catch (e) {
+      //console.log(e);
+      alert("Something is going wrong, Please try again.");
+    }
+
+    setIsOpenR(true);
+  };
   const printR = () => {
     //  toast.info("Please wait we are genrating report");
     list(`Visit/getVisitForReport/${visitID}`)
@@ -791,7 +849,7 @@ const VirtualMeetingPost = (props) => {
                     <button
                       class="w-100 border-0 shadow btn btn-primary cc-btn cc-page-title"
                       onClick={() => {
-                        setIsOpenR(true);
+                        getAI();
                       }}
                     >
                       {translate("ADD_NOTES")}
@@ -1707,7 +1765,7 @@ const VirtualMeetingPost = (props) => {
             X
           </Button>
         </DialogTitle>
-        <div style={{ width: "30vw" }}>
+        <div style={{ width: "60vw" }}>
           <DialogContent>
             <div className="modal-body pb-3 cc-bg-light-grey">
               <div className="card shadow">
@@ -1717,7 +1775,7 @@ const VirtualMeetingPost = (props) => {
                       src={link}
                       alt="Cloud Clinic Logo"
                       className="cc_logo"
-                      style={{ height: "50px", width: "200px" }}
+                      style={{ height: "70px", width: "240px" }}
                     />
                     <div className="text-right">
                       <div className="w-100 d-flex align-items-baseline col-md-12 mt-2 px-4">
@@ -1729,7 +1787,7 @@ const VirtualMeetingPost = (props) => {
                   <div className="form-group px-3">
                     <textarea
                       className="form-control border-0"
-                      rows={5}
+                      rows={10}
                       name="notes"
                       value={data.notes}
                       onChange={(e) => dataChange(e)}

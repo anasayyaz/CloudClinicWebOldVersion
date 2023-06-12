@@ -211,7 +211,7 @@ class Appointments extends React.Component {
           nationalID={this.props.location.nationalID}
         />
         {/* <ButtonToolbar /> */}
-        {/* <div
+        <div
           className="modal fade"
           id="addSlotsModal"
           tabIndex="-1"
@@ -251,7 +251,7 @@ class Appointments extends React.Component {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </React.Fragment>
     );
   }

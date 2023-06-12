@@ -73,6 +73,7 @@
     "moment-timezone": "^0.5.32",
     "mui-datatables": "^3.7.1",
     "noty": "^3.2.0-beta-deprecated",
+    "openai": "^3.2.1",
     "pdf-viewer-reactjs": "^2.2.3",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.1",
