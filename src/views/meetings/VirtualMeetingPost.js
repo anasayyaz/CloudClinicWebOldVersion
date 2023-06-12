@@ -59,7 +59,7 @@ let domainName = localStorage.getItem("domainName");
 // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 const VirtualMeetingPost = (props) => {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const { translate } = useContext(TranslationContext);
   const jitsiContainerStyle = {
@@ -392,7 +392,7 @@ const VirtualMeetingPost = (props) => {
       console.log(responseDiagnosis);
       const result = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `get doctors note and assemsnet in few lines on this information diagnosis: ${rdc} and medicine: ${rmc}`,
+        prompt: `A patient was diagnosed with: ${rdc} and the doctor prescribed these medicines: ${rmc} . Please write few lines based on this information as doctor notes`,
         temperature: 0.5,
         max_tokens: 4000,
       });
