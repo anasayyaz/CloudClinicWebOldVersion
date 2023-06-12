@@ -2575,11 +2575,7 @@
     base-64 "^0.1.0"
     uuid "^8.0.0"
 
-"@speechly/speech-recognition-polyfill@github:speechly/speech-recognition-polyfill":
-  version "1.3.0"
-  resolved "git+ssh://git@github.com/speechly/speech-recognition-polyfill.git#9e0fd16d1d0f7a848938c716e0f4cf752b8781da"
-  dependencies:
-    "@speechly/browser-client" "^2.6.5"
+
 
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
