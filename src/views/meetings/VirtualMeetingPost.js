@@ -59,7 +59,7 @@ let domainName = localStorage.getItem("domainName");
 // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 const VirtualMeetingPost = (props) => {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const { translate } = useContext(TranslationContext);
   const jitsiContainerStyle = {
