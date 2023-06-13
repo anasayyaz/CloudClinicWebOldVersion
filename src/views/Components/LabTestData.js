@@ -6,7 +6,6 @@ import LoadingSpinner from "./LoadingSpinner";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 let userid = JSON.parse(localStorage.getItem("user"));
-let show;
 var roles = localStorage.getItem("roles");
 const LabTestData = (props) => {
   const { translate } = useContext(TranslationContext);
@@ -480,7 +479,7 @@ const LabTestData = (props) => {
               ) : (
                 <li className="d-flex align-items-center py-2 border-bottom w-100">
                   <div className="pr-1 pl-0 font-weight-bold col-md-10">
-                    {show ? (
+                    {props.show ? (
                       <input
                         list="LabTestTypeID"
                         id="LabTestTypeID-input"
@@ -513,7 +512,7 @@ const LabTestData = (props) => {
                         ))}
                     </datalist>
                   </div>
-                  {show ? (
+                  {props.show ? (
                     <div className="pl-1 pr-0 col-md-2">
                       <button
                         className="border-0 btn btn-sm btn-danger w-100 cc-btn py-2 border-0"
