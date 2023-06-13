@@ -59,7 +59,7 @@ let domainName = localStorage.getItem("domainName");
 // SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 const VirtualMeetingPost = (props) => {
   const configuration = new Configuration({
-    apiKey: "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",
+    apiKey: "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",
   });
   const { translate } = useContext(TranslationContext);
   const jitsiContainerStyle = {
@@ -388,9 +388,26 @@ const VirtualMeetingPost = (props) => {
       rdc = rdc + responseDiagnosis[i].medicineName + ",";
     }
 
+    const getAllH = await fetch(
+      `https://cloudclinicdevapi.azurewebsites.net/api/History/getPatientHistorybyVisit/${visitID}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+        body: null,
+      }
+    );
+    const responseHistory = await getAllH.json();
+    let rdh = JSON.stringify(responseHistory);
+    // for (let i = 0; i < responseHistory.length; i++) {
+    //   console.log(responseHistory[i].medicineName);
+    //   rdc = rdc + responseHistory[i].medicineName + ",";
+    // }
+
     try {
-      console.log(responseDiagnosis);
-      const result = await openai.createCompletion({
+     //
+     const result = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: `A patient was diagnosed with: ${rdc} and the doctor prescribed these medicines: ${rmc} . Please write few lines based on this information as doctor notes`,
         temperature: 0.5,
